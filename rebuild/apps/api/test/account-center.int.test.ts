@@ -1,3 +1,5 @@
+// Synthetic format-valid AppID for isolated tests; never a real application.
+const TEST_WECHAT_APP_ID = 'wx' + '0'.repeat(16);
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { up as accountMigration } from '../src/database/migrations/015_account_center.js';
 import request from 'supertest';
@@ -97,7 +99,7 @@ describe('account center ownership and lifecycle', () => {
   });
   it('binds verified native WeChat to an existing email account and refuses cross-account conflicts', async () => {
     h = await createTestApp({
-      wechatMini: { appId: 'wx1234567890abcdef', appSecret: 'test-secret' },
+      wechatMini: { appId: TEST_WECHAT_APP_ID, appSecret: 'test-secret' },
     });
     const auth = new PasswordAuthService(h.db);
     const member = await auth.acceptExternalProof(proof('web@example.com'));

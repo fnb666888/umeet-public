@@ -1,3 +1,5 @@
+// Synthetic format-valid AppID for isolated tests; never a real application.
+const TEST_WECHAT_APP_ID = 'wx' + '0'.repeat(16);
 import { describe, it, expect, vi } from 'vitest';
 import { WechatMiniAdapter } from '../src/modules/identity/wechat-mini.adapter.js';
 describe('server-side WeChat code verification', () => {
@@ -15,7 +17,7 @@ describe('server-side WeChat code verification', () => {
       );
     const proof = await new WechatMiniAdapter(
       {
-        appId: 'wx1234567890abcdef',
+        appId: TEST_WECHAT_APP_ID,
         appSecret: 'test-only-secret',
         unionRealm: 'our-open-platform',
       },
@@ -26,14 +28,14 @@ describe('server-side WeChat code verification', () => {
     expect(url.searchParams.get('js_code')).toBe('one-time-code');
     expect(url.searchParams.get('grant_type')).toBe('authorization_code');
     expect(proof.identities).toEqual([
-      { provider: 'wechat-mini:wx1234567890abcdef', subject: 'verified-openid' },
+      { provider: `wechat-mini:${TEST_WECHAT_APP_ID}`, subject: 'verified-openid' },
       { provider: 'wechat-union:our-open-platform', subject: 'verified-unionid' },
     ]);
     expect(JSON.stringify(proof)).not.toContain('never-return');
     expect(JSON.stringify(proof)).not.toContain('test-only-secret');
   });
   it('does not use an unscoped UnionID and maps provider failures to sanitized application errors', async () => {
-    const config = { appId: 'wx1234567890abcdef', appSecret: 'test-only-secret' };
+    const config = { appId: TEST_WECHAT_APP_ID, appSecret: 'test-only-secret' };
     const ok = vi
       .fn<typeof fetch>()
       .mockResolvedValue(
