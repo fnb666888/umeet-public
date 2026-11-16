@@ -1,0 +1,22 @@
+<view class="page {{theme}}"
+  ><view class="heading">{{title}}</view><view wx:if="{{error}}" class="error">{{error}}</view
+  ><view wx:for="{{reviews}}" wx:key="id" class="card margin-top"
+    ><view>{{item.title}}</view
+    ><text class="badge">{{item.status==='pending'?'待审核':item.status}}</text
+    ><view class="caption">{{item.reason}}</view></view
+  ><block wx:if="{{view==='drafts'}}"
+    ><view
+      wx:for="{{items}}"
+      wx:key="key"
+      class="card margin-top"
+      data-key="{{item.key}}"
+      id="action-draft"
+      bindtap="draft"
+      ><view class="bold">{{item.title || '未命名草稿'}}</view
+      ><view class="caption">{{item.body}}</view><text class="link">继续编辑 ›</text></view
+    ></block
+  ><block wx:else
+    ><post-card wx:for="{{items}}" wx:key="id" post="{{item}}" bind:open="open" /></block
+  ><view wx:if="{{!items.length && !loading}}" class="empty">这里还没有内容</view
+  ><view wx:if="{{loading}}" class="notice">正在加载…</view></view
+>

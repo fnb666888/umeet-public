@@ -1,0 +1,6 @@
+{
+  "key": "campus-network",
+  "title": "校园网连接排查（Windows）",
+  "summary": "按连接状态收集基本信息，再联系学校网络服务人员。",
+  "markdown": "## 适用对象\n\n使用 Windows 笔记本连接校园无线网络、需要先判断本机连接状态的同学。本手册提供通用排查，不代替学校的网络接入规定。\n\n## 排查步骤\n\n1. 检查 Wi-Fi 已开启、飞行模式已关闭，并核对连接的网络名称。\n2. 尝试其他网站或应用，确认是某个服务不可用，还是连接普遍异常。\n3. 打开命令提示符运行 `ipconfig`，记录当前无线适配器的 IPv4 地址和默认网关，供排障时使用。\n4. 如果仍无法连接，向学校网络服务人员说明发生时间、网络名称、错误提示及排查结果。账号认证入口、办理方式和联系电话以本校官方通知为准。\n\n## 注意事项\n\n不要把密码、验证码或含个人信息的诊断截图公开到讨论区。不要擅自重置学校管理的网络设备。\n\n## 信息来源\n\n[Microsoft：Fix Wi-Fi connection issues in Windows](https://support.microsoft.com/en-gb/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows)\n"
+}

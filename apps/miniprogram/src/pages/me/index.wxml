@@ -1,0 +1,31 @@
+<view class="page {{theme}}"
+  ><view class="heading">我的</view><view wx:if="{{error}}" class="error">{{error}}</view
+  ><view class="card margin-top" id="action-account" bindtap="account"
+    ><view class="row"
+      ><view class="avatar">{{actor?actor.nickname[0]:'U'}}</view
+      ><view class="grow"
+        ><view class="subheading">{{actor?actor.nickname:'登录 Umeet'}}</view
+        ><view class="caption"
+          >{{actor?'查看账号与微信绑定':'登录后，参与社区和 Wiki 共建'}}</view
+        ></view
+      ><text class="muted">›</text></view
+    ></view
+  ><view wx:if="{{restricted}}" class="error">账号使用受限，查看管理记录与申诉。</view
+  ><view class="menu-item" data-view="posts" id="action-records" bindtap="records"
+    ><text>我的发布</text><text>›</text></view
+  ><view class="menu-item" data-view="replies" id="action-records" bindtap="records"
+    ><text>我的回复</text><text>›</text></view
+  ><view class="menu-item" data-view="bookmarks" id="action-records" bindtap="records"
+    ><text>我的收藏</text><text>›</text></view
+  ><view class="menu-item" data-view="drafts" id="action-records" bindtap="records"
+    ><text>发帖草稿</text><text>›</text></view
+  ><view class="menu-item" id="action-knowledge" bindtap="knowledge"
+    ><text>Wiki 贡献与草稿</text><text>›</text></view
+  ><view class="menu-item" id="action-governance" bindtap="governance"
+    ><text>我的申请、邀请与管理记录</text><text>›</text></view
+  ><view class="menu-item" id="action-settings" bindtap="settings"
+    ><text>个人资料与显示设置</text><text>›</text></view
+  ><view class="menu-item" id="action-policy" bindtap="policy"
+    ><text>社区规则与隐私说明</text><text>›</text></view
+  ></view
+>

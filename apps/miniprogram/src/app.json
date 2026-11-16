@@ -1,0 +1,76 @@
+{
+  "pages": [
+    "pages/community/index",
+    "pages/knowledge/index",
+    "pages/messages/index",
+    "pages/me/index",
+    "pages/campus/index"
+  ],
+  "subPackages": [
+    {
+      "root": "features",
+      "pages": [
+        "detail/index",
+        "publish/index",
+        "records/index",
+        "account/index",
+        "settings/index",
+        "policy/index",
+        "profile/index",
+        "conversation/index",
+        "governance/index",
+        "knowledge-detail/index",
+        "knowledge-editor/index",
+        "knowledge-space/index",
+        "knowledge-route/index",
+        "knowledge-manage/index",
+        "knowledge-history/index"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTitleText": "Umeet",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#ffffff",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#636b74",
+    "selectedColor": "#3568d4",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/community/index",
+        "text": "社区",
+        "iconPath": "/assets/community.png",
+        "selectedIconPath": "/assets/community-active.png"
+      },
+      {
+        "pagePath": "pages/knowledge/index",
+        "text": "Wiki",
+        "iconPath": "/assets/knowledge.png",
+        "selectedIconPath": "/assets/knowledge-active.png"
+      },
+      {
+        "pagePath": "pages/messages/index",
+        "text": "消息",
+        "iconPath": "/assets/messages.png",
+        "selectedIconPath": "/assets/messages-active.png"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "text": "我的",
+        "iconPath": "/assets/me.png",
+        "selectedIconPath": "/assets/me-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json",
+  "darkmode": true,
+  "themeLocation": "theme.json"
+}

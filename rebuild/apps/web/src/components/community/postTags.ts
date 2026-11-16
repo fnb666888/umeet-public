@@ -1,0 +1,20 @@
+// The initial catalog follows the existing Demo's topic choices.
+export const postTags = [
+  '期末周',
+  '图书馆',
+  '考研',
+  '租房',
+  '二手',
+  '数码',
+  '社团',
+  '实习',
+  '徒步',
+  '搭子',
+  '电影',
+  '摄影',
+  '校园日常',
+  '美食',
+  '失物招领',
+  '自习室',
+  '校园随拍',
+] as const;

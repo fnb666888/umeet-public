@@ -1,0 +1,103 @@
+name: umeet
+x-app-env: &app-env
+  NODE_ENV: production
+  DEMO_MODE: 'false'
+  LOCAL_DATABASE: 'false'
+  DATABASE_URL: postgresql://umeet:${POSTGRES_PASSWORD:?configure POSTGRES_PASSWORD}@postgres:5432/umeet
+  REDIS_URL: redis://:${REDIS_PASSWORD:?configure REDIS_PASSWORD}@redis:6379/0
+  JWT_SECRET: ${JWT_SECRET:?configure JWT_SECRET}
+  ADMIN_PASSWORD: ${ADMIN_PASSWORD:?configure ADMIN_PASSWORD}
+  WECHAT_APP_ID: ${WECHAT_APP_ID:?configure WECHAT_APP_ID}
+  WECHAT_APP_SECRET: ${WECHAT_APP_SECRET:?configure WECHAT_APP_SECRET}
+  WECHAT_SUBSCRIBE_TEMPLATE: ${WECHAT_SUBSCRIBE_TEMPLATE:-}
+  WECHAT_SUBSCRIBE_FIELD_MAP: ${WECHAT_SUBSCRIBE_FIELD_MAP:-}
+  SMTP_HOST: ${SMTP_HOST:-}
+  SMTP_PORT: ${SMTP_PORT:-465}
+  SMTP_USER: ${SMTP_USER:-}
+  SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+  SMTP_FROM: ${SMTP_FROM:-}
+  STORAGE_PROVIDER: s3
+  S3_ENDPOINT: ${S3_ENDPOINT:-}
+  S3_REGION: ${S3_REGION:-auto}
+  S3_BUCKET: ${S3_BUCKET:?configure S3_BUCKET}
+  S3_ACCESS_KEY: ${S3_ACCESS_KEY:?configure S3_ACCESS_KEY}
+  S3_SECRET_KEY: ${S3_SECRET_KEY:?configure S3_SECRET_KEY}
+  PUBLIC_API_URL: ${PUBLIC_API_URL:?configure PUBLIC_API_URL}
+  CORS_ORIGINS: ${CORS_ORIGINS:?configure CORS_ORIGINS}
+  HOST: 0.0.0.0
+  PORT: '3100'
+  TRUST_PROXY: '1'
+  VERIFICATION_RETENTION_DAYS: ${VERIFICATION_RETENTION_DAYS:-7}
+
+services:
+  postgres:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: umeet
+      POSTGRES_USER: umeet
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?configure POSTGRES_PASSWORD}
+    volumes: [postgres-data:/var/lib/postgresql]
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U umeet -d umeet']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  redis:
+    image: redis:8-alpine
+    restart: unless-stopped
+    command: ['sh', '-c', 'exec redis-server --appendonly yes --requirepass "$$REDIS_PASSWORD"']
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:?configure REDIS_PASSWORD}
+      REDISCLI_AUTH: ${REDIS_PASSWORD:?configure REDIS_PASSWORD}
+    volumes: [redis-data:/data]
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  migrate:
+    build: { context: ., dockerfile: deploy/Dockerfile, target: build }
+    environment: *app-env
+    command: ['npm', 'run', 'migrate', '-w', '@umeet/api']
+    depends_on:
+      postgres: { condition: service_healthy }
+  api:
+    image: umeet-api:local
+    build: { context: ., dockerfile: deploy/Dockerfile, target: runtime }
+    restart: unless-stopped
+    environment: *app-env
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3100/api/v1/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+  worker:
+    image: umeet-api:local
+    build: { context: ., dockerfile: deploy/Dockerfile, target: runtime }
+    restart: unless-stopped
+    environment: *app-env
+    command: ['node', 'apps/api/dist/worker.js']
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+  gateway:
+    build: { context: ., dockerfile: deploy/Dockerfile, target: gateway }
+    restart: unless-stopped
+    ports: ['127.0.0.1:${GATEWAY_PORT:-8080}:80']
+    depends_on:
+      api: { condition: service_healthy }
+
+volumes:
+  postgres-data:
+  redis-data:

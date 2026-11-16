@@ -1,0 +1,20 @@
+.disposition-effects {
+  list-style: none;
+  margin: 16px 0;
+  padding: 0;
+}
+.disposition-effects li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border, #8884);
+}
+.disposition-effects span,
+.disposition-effects small {
+  color: inherit;
+  opacity: 0.72;
+}
+.disposition-effects small {
+  flex-basis: 100%;
+}

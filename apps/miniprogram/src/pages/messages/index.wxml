@@ -1,0 +1,45 @@
+<view class="page {{theme}}"
+  ><view class="row between"
+    ><view class="heading">消息</view
+    ><button class="secondary" id="action-search" bindtap="search">＋ 私信</button></view
+  ><view wx:if="{{!logged}}" class="empty"
+    >登录后查看消息<button class="quiet" id="action-login" bindtap="login">去登录</button></view
+  ><block wx:else
+    ><scroll-view scroll-x class="tabs"
+      ><text
+        class="tab {{view==='messages'?'active':''}}"
+        data-id="messages"
+        id="action-tab"
+        bindtap="tab"
+        >私信 {{unread || ''}}</text
+      ><text
+        class="tab {{view==='requests'?'active':''}}"
+        data-id="requests"
+        id="action-tab"
+        bindtap="tab"
+        >消息请求 {{requests || ''}}</text
+      ><text
+        class="tab {{view==='notifications'?'active':''}}"
+        data-id="notifications"
+        id="action-tab"
+        bindtap="tab"
+        >系统通知</text
+      ></scroll-view
+    ><view wx:if="{{error}}" class="error">{{error}}</view
+    ><view
+      wx:for="{{items}}"
+      wx:key="peer"
+      class="menu-item"
+      data-index="{{index}}"
+      id="action-open"
+      bindtap="open"
+      ><view class="grow"
+        ><view class="bold">{{item.name || item.text}}</view
+        ><view class="caption">{{item.lastMessage.text || item.detail || '点击查看会话'}}</view
+        ><view class="caption">{{item.time}}</view></view
+      ><text wx:if="{{item.unread}}" class="badge">{{item.unread}}</text></view
+    ><view wx:if="{{!items.length && !loading}}" class="empty"
+      >暂无{{view==='requests'?'消息请求':view==='notifications'?'系统通知':'私信'}}</view
+    ><view wx:if="{{loading}}" class="notice">正在加载…</view></block
+  ></view
+>

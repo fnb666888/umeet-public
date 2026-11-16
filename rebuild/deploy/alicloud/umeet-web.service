@@ -1,0 +1,27 @@
+[Unit]
+Description=Umeet Next.js website
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/etc/umeet/web.env
+
+[Service]
+Type=simple
+User=umeet
+Group=umeet
+WorkingDirectory=/opt/umeet/current/apps/web/.next/standalone
+EnvironmentFile=/etc/umeet/web.env
+ExecStart=/opt/umeet/node/bin/node apps/web/server.js
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/opt/umeet/current/apps/web/.next/standalone/apps/web/.next/cache
+MemoryHigh=384M
+MemoryMax=512M
+
+[Install]
+WantedBy=multi-user.target

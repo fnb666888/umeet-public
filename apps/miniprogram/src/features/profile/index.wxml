@@ -1,0 +1,13 @@
+<view class="page {{theme}}"
+  ><view wx:if="{{error}}" class="error">{{error}}</view
+  ><view wx:if="{{profile}}" class="stack"
+    ><view class="row"
+      ><view class="avatar">{{profile.name[0]}}</view
+      ><view class="heading">{{profile.name}}</view></view
+    ><view wx:if="{{profile.public}}" class="caption"
+      >{{profile.profile.bio || '这位同学还没有填写简介'}}</view
+    ><view wx:else class="notice">此用户选择隐藏个人资料</view
+    ><button class="secondary" id="action-message" bindtap="message">发送私信</button
+    ><view class="subheading">公开发布</view></view
+  ><post-card wx:for="{{posts}}" wx:key="id" post="{{item}}" bind:open="open"
+/></view>

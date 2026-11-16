@@ -1,0 +1,183 @@
+<view class="page {{theme}}"
+  ><view class="heading">{{pageId?'完善词条':'创建词条'}}</view
+  ><view class="caption margin-top">{{status}}</view
+  ><view wx:if="{{notice}}" class="notice">{{notice}}</view
+  ><view wx:if="{{error}}" class="error"
+    >{{error}}<view class="actions"
+      ><button id="action-retry" bindtap="retry">重试同步</button
+      ><button id="action-compare" bindtap="compare">比较服务器草稿</button
+      ><button id="action-fork" bindtap="fork">另存当前稿</button></view
+    ></view
+  ><view wx:if="{{done}}" class="card margin-top"
+    ><view class="subheading">修改已提交审核</view
+    ><view>审核通过后更新公开正文。你可以在“我的 Wiki”查看结果。</view
+    ><button class="primary margin-top" id="action-manage" bindtap="manage">
+      查看我的贡献
+    </button></view
+  ><block wx:elif="{{loaded}}"
+    ><view wx:if="{{otherDraft}}" class="card margin-top"
+      ><view class="subheading">两份草稿比较</view><view class="label">当前稿</view
+      ><text selectable class="body small">{{content.markdown}}</text
+      ><view class="label">另一份稿件</view
+      ><text selectable class="body small">{{otherDraft.content.markdown}}</text
+      ><view class="actions"
+        ><button id="action-useServer" bindtap="useServer">使用服务器稿</button
+        ><button id="action-fork" bindtap="fork">另存当前稿</button></view
+      ></view
+    ><view wx:if="{{latest}}" class="card margin-top"
+      ><view class="subheading">公开正文已有新版本</view><view class="label">最新正文</view
+      ><text selectable class="body small">{{latest.markdown}}</text
+      ><view class="label">你的正文</view
+      ><text selectable class="body small">{{content.markdown}}</text
+      ><button class="secondary margin-top" id="action-confirmBase" bindtap="confirmBase">
+        已核对，参考此版本继续合并
+      </button></view
+    ><text class="label">词条标题</text
+    ><input
+      disabled="{{busy}}"
+      class="field"
+      value="{{content.title}}"
+      data-field="title"
+      bindinput="input"
+      maxlength="160"
+      placeholder="一个独立概念或完整任务"
+    /><text class="label">摘要</text
+    ><textarea
+      disabled="{{busy}}"
+      class="field"
+      value="{{content.summary}}"
+      data-field="summary"
+      bindinput="input"
+      maxlength="1000"
+    /><text class="label">内容模板</text
+    ><picker
+      disabled="{{busy}}"
+      class="field"
+      range="{{['普通词条','指导手册','学科知识']}}"
+      bindchange="template"
+      ><view
+        >{{content.template==='handbook'?'指导手册':content.template==='academic'?'学科知识':'普通词条'}}　⌄</view
+      ></picker
+    ><view class="tabs"
+      ><text
+        class="tab {{mode==='edit'?'active':''}}"
+        data-mode="edit"
+        id="action-preview"
+        bindtap="preview"
+        >Markdown 编辑</text
+      ><text
+        class="tab {{mode==='preview'?'active':''}}"
+        data-mode="preview"
+        id="action-preview"
+        bindtap="preview"
+        >预览</text
+      ></view
+    ><textarea
+      disabled="{{busy}}"
+      wx:if="{{mode==='edit'}}"
+      class="field editor"
+      value="{{content.markdown}}"
+      data-field="markdown"
+      bindinput="input"
+      maxlength="500000"
+      adjust-position
+      placeholder="用 Markdown 编写。行内公式用 $…$，独立公式用 $$…$$。"
+    /><block wx:else
+      ><scroll-view wx:for="{{blocks}}" wx:key="index" class="wide" scroll-x="{{item.wide}}"
+        ><rich-text nodes="{{item.nodes}}" user-select /></scroll-view
+      ><button
+        wx:for="{{links}}"
+        wx:key="url"
+        class="quiet"
+        data-url="{{item.url}}"
+        id="action-link"
+        bindtap="link"
+      >
+        {{item.label}} ↗
+      </button></block
+    ><view class="divider" /><view class="subheading">知识关系</view
+    ><view wx:for="{{content.relations}}" wx:key="targetPageId" class="card margin-top"
+      ><view class="bold">{{item._title || '已关联词条'}}</view
+      ><view class="caption"
+        >{{item.type==='prerequisite'?'前置知识':item.type==='approximation_of'?'近似自':item.type==='applied_to'?'应用于':'相关知识'}}</view
+      ><text class="label">成立条件</text
+      ><textarea
+        disabled="{{busy}}"
+        class="field"
+        value="{{item.conditions}}"
+        data-index="{{index}}"
+        data-field="conditions"
+        bindinput="relationField"
+        maxlength="2000"
+      /><text class="label">解释</text
+      ><textarea
+        disabled="{{busy}}"
+        class="field"
+        value="{{item.explanation}}"
+        data-index="{{index}}"
+        data-field="explanation"
+        bindinput="relationField"
+        maxlength="2000"
+      /><text class="label">依据</text
+      ><input
+        disabled="{{busy}}"
+        class="field"
+        value="{{item.evidence}}"
+        data-index="{{index}}"
+        data-field="evidence"
+        bindinput="relationField"
+        maxlength="2000"
+      /><button
+        class="quiet danger"
+        data-index="{{index}}"
+        id="action-removeRelation"
+        bindtap="removeRelation"
+      >
+        移除此关系
+      </button></view
+    ><picker
+      disabled="{{busy}}"
+      class="field margin-top"
+      range="{{relationNames}}"
+      value="{{relationIndex}}"
+      bindchange="relationType"
+      ><view>{{relationNames[relationIndex]}}　⌄</view></picker
+    ><input
+      disabled="{{busy}}"
+      class="search"
+      value="{{relationQ}}"
+      bindinput="relationInput"
+      bindconfirm="searchTargets"
+      placeholder="搜索要关联的知识点"
+    /><button id="action-searchTargets" bindtap="searchTargets">查找词条</button
+    ><view
+      wx:for="{{targets}}"
+      wx:key="id"
+      class="menu-item"
+      data-index="{{index}}"
+      id="action-addTarget"
+      bindtap="addTarget"
+      ><text>{{item.title}}</text><text class="link">＋ 添加</text></view
+    ><text class="label">修改说明</text
+    ><textarea
+      disabled="{{busy}}"
+      class="field"
+      value="{{content.changeNote}}"
+      data-field="changeNote"
+      bindinput="input"
+      maxlength="2000"
+      placeholder="简述修改内容与依据"
+    /><view class="actions sticky"
+      ><button id="action-retry" bindtap="retry" disabled="{{busy}}">同步草稿</button
+      ><button
+        class="primary"
+        id="action-submit"
+        bindtap="submit"
+        disabled="{{busy || !content.title || !content.markdown}}"
+        loading="{{busy}}"
+      >
+        提交审核
+      </button></view
+    ></block
+  ><view wx:else class="notice">正在恢复私人草稿…</view></view
+>

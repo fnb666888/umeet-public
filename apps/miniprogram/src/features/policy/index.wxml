@@ -1,0 +1,11 @@
+<view class="page {{theme}}"
+  ><view class="heading">社区规则与隐私</view
+  ><view class="card margin-top stack"
+    ><view class="subheading">尊重与可靠</view
+    ><view>请友善交流，说明信息来源，保护自己和他人的隐私。举报与申诉通过管理记录处理。</view
+    ><view class="subheading">账号与私人内容</view
+    ><view
+      >登录身份由服务端验证。个人草稿与消息按账号隔离；退出后不会向其他用户展示。公开贡献与词条修改遵循社区审核和版本规则。</view
+    ><view class="caption">具体公开规则与隐私政策以网站公布的版本为准。</view></view
+  ></view
+>

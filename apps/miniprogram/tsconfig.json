@@ -1,0 +1,1 @@
+{"compilerOptions":{"target":"ES2019","module":"CommonJS","strict":true,"skipLibCheck":true,"types":["miniprogram-api-typings"],"rootDir":"src","outDir":"dist","noEmitOnError":true},"include":["src/**/*.ts"]}

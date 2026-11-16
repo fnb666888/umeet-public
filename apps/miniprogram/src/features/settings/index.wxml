@@ -1,0 +1,91 @@
+<view class="page {{theme}}"
+  ><view class="heading">资料与显示设置</view><view class="subheading margin-top">外观</view
+  ><view class="chips margin-top"
+    ><text
+      wx:for="{{['light','dark','system']}}"
+      wx:key="*this"
+      class="chip {{themeChoice===item?'selected':''}}"
+      data-id="{{item}}"
+      id="action-theme"
+      bindtap="theme"
+      >{{item==='light'?'浅色':item==='dark'?'深色':'跟随系统'}}</text
+    ></view
+  ><block wx:if="{{logged && loaded}}"
+    ><view class="divider" /><view class="row"
+      ><image wx:if="{{avatarURL}}" class="avatar" src="{{avatarURL}}" /><button
+        id="action-avatar"
+        bindtap="avatar"
+        disabled="{{busy}}"
+      >
+        更换头像
+      </button></view
+    ><text class="label">用户名</text><view class="field">{{profile.name}}</view
+    ><view class="caption">用户名变更与账号安全在网站账号设置中管理。</view
+    ><text class="label">简介</text
+    ><textarea
+      class="field"
+      disabled="{{busy}}"
+      value="{{profile.bio}}"
+      maxlength="60"
+      data-field="bio"
+      bindinput="input"
+    /><block
+      wx:for="{{[{key:'school',name:'学校'},{key:'campus',name:'校区'},{key:'dept',name:'院系'},{key:'year',name:'年级'}]}}"
+      wx:key="key"
+      ><text class="label">{{item.name}}</text
+      ><input
+        class="field"
+        value="{{profile[item.key]}}"
+        data-field="{{item.key}}"
+        bindinput="input"
+        disabled="{{busy}}"
+        maxlength="1000" /></block
+    ><text class="label">兴趣标签（逗号分隔，最多六个）</text
+    ><input
+      class="field"
+      value="{{tagText}}"
+      data-field="tags"
+      bindinput="input"
+      disabled="{{busy}}"
+    /><view class="divider" /><view class="subheading">隐私</view
+    ><view class="menu-item"
+      ><text>公开个人资料</text
+      ><switch
+        checked="{{privacyPrefs.profilePublic}}"
+        data-field="privacyPrefs.profilePublic"
+        bindchange="toggle"
+        disabled="{{busy}}"
+        color="#3568d4" /></view
+    ><view class="menu-item"
+      ><text>公开收藏与关注</text
+      ><switch
+        checked="{{privacyPrefs.marksPublic}}"
+        data-field="privacyPrefs.marksPublic"
+        bindchange="toggle"
+        disabled="{{busy}}"
+        color="#3568d4" /></view
+    ><view class="menu-item"
+      ><text>允许陌生人私信请求</text
+      ><switch
+        checked="{{allowRequests}}"
+        data-field="allowRequests"
+        bindchange="toggle"
+        disabled="{{busy}}"
+        color="#3568d4" /></view
+    ><view class="subheading margin-top">站内通知</view
+    ><view
+      wx:for="{{[{key:'reply',name:'回复'},{key:'like',name:'点赞'},{key:'follow',name:'关注'},{key:'system',name:'系统'}]}}"
+      wx:key="key"
+      class="menu-item"
+      ><text>{{item.name}}</text
+      ><switch
+        checked="{{notifPrefs[item.key]}}"
+        data-field="notifPrefs.{{item.key}}"
+        bindchange="toggle"
+        disabled="{{busy}}"
+        color="#3568d4" /></view
+    ><button class="primary margin-top" id="action-save" bindtap="save" disabled="{{busy}}">
+      保存资料与偏好
+    </button></block
+  ></view
+>

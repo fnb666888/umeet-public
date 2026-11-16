@@ -1,0 +1,30 @@
+[
+  {
+    "key": "waves",
+    "branch": "basic",
+    "title": "波的频率与波长",
+    "summary": "理解周期、频率、波长和传播速度之间的关系。",
+    "markdown": "## 定义\n\n对周期波，频率 $f$ 表示单位时间的振动次数，周期为 $T=1/f$，波长 $\\lambda$ 是相邻同相位位置之间的距离。\n\n## 基本关系\n\n$$\nv=f\\lambda\n$$\n\n这里的 $v$ 是相位传播速度，不是介质质点的运动速度。讨论色散时，应注明频率和相应的相速度。\n\n## 阅读建议\n\n先区分空间周期与时间周期，再进入电磁波和光学模型。\n\n## 参考资料\n\n[OpenStax：Mathematics of Waves](https://openstax.org/books/university-physics-volume-1/pages/16-2-mathematics-of-waves)\n"
+  },
+  {
+    "key": "em",
+    "branch": "basic",
+    "title": "电磁波（经典理论）",
+    "summary": "从经典电磁场认识真空中传播的电磁波。",
+    "markdown": "## 经典描述\n\n麦克斯韦方程允许电场和磁场以电磁波的形式在真空中传播；这里聚焦无自由电荷与电流的真空平面波。\n\n## 真空传播速度\n\n$$\nc=\\frac{1}{\\sqrt{\\mu_0\\varepsilon_0}}\n$$\n\n平面波的电场、磁场方向与传播方向相互垂直。描述真实介质时，还需给出材料响应和边界条件。\n\n## 模型边界\n\n本词条采用经典电磁描述，不用它代替所有光与物质相互作用的量子描述。\n\n## 参考资料\n\n[OpenStax：Plane Electromagnetic Waves](https://openstax.org/books/university-physics-volume-2/pages/16-2-plane-electromagnetic-waves)\n"
+  },
+  {
+    "key": "geometry",
+    "branch": "approximation",
+    "title": "几何光学",
+    "summary": "在尺度条件合适时，用光线描述光的传播与成像。",
+    "markdown": "## 模型\n\n几何光学通过光线和几何作图讨论反射、折射与成像，用于保留传播方向等主要信息。\n\n## 近似条件\n\n相关结构尺度 $L$ 应远大于波长：\n\n$$\n\\lambda/L\\ll1\n$$\n\n这是使用光线近似的重要尺度条件，不是对所有位置与问题都充分的保证。衍射、干涉及焦散附近等情况需要进一步检查波动效应。\n\n## 应用\n\n在额外满足近轴和薄透镜等假设时，可用于建立薄透镜成像模型。\n\n## 参考资料\n\n[OpenStax：Geometric Optics and Image Formation](https://openstax.org/books/university-physics-volume-3/pages/2-introduction)\n"
+  },
+  {
+    "key": "lens",
+    "branch": "application",
+    "title": "薄透镜成像",
+    "summary": "用薄透镜模型估算像的位置，并明确符号和近似条件。",
+    "markdown": "## 要解决的问题\n\n已知物距与焦距，估算像距。\n\n## 模型条件\n\n采用薄透镜、近轴光线与适合的光学介质条件；透镜厚度、像差或衍射显著时，需使用更精细的模型。\n\n## 成像关系\n\n$$\n\\frac{1}{f}=\\frac{1}{d_o}+\\frac{1}{d_i}\n$$\n\n采用实物距为正、实像距为正、会聚透镜焦距为正的符号约定。\n\n## 示例\n\n会聚薄透镜 $f=10\\,\\mathrm{cm}$，实物距 $d_o=30\\,\\mathrm{cm}$，得到实像距 $d_i=15\\,\\mathrm{cm}$。使用模型前先核对上述条件。\n\n## 参考资料\n\n[OpenStax：Thin Lenses](https://openstax.org/books/university-physics-volume-3/pages/2-4-thin-lenses)\n"
+  }
+]

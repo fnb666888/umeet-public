@@ -1,0 +1,10 @@
+<view class="post-card" id="action-open" bindtap="open"
+  ><view class="post-meta"
+    ><text class="initial">{{post.initial}}</text><text>{{post.author}}</text
+    ><text>· {{post.time}}</text><text wx:if="{{post.pinned}}" class="badge">置顶</text></view
+  ><view class="post-title">{{post.title}}</view><view class="post-summary">{{post.body}}</view
+  ><view class="post-meta bottom"
+    ><text>{{post.community}}</text><text>♡ {{post.likes}}　评论 {{post.replyCount || 0}}</text
+    ><text wx:if="{{post.sold}}">已出</text><text wx:if="{{post.best}}">已解决</text></view
+  ></view
+>

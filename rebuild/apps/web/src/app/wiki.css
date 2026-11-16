@@ -1,0 +1,65 @@
+.wiki-page,.wiki-compose { max-width:1000px; }
+.compose-fields { border:0;margin:0;padding:0;min-width:0; }
+.wiki-index { margin-top:20px; }
+.wiki-actions { display:flex;align-items:center;flex-wrap:wrap;gap:23px;margin:20px 0; }
+.wiki-actions>a:not(.primary) { color:var(--blue);font-size:12px; }
+.wiki-prose { line-height:1.9;font-size:15px;color:#34405a;overflow-wrap:anywhere; }
+.wiki-prose p,.wiki-prose ul,.wiki-prose ol,.wiki-prose blockquote,.wiki-prose pre,.wiki-prose table { margin:1.2em 0; }
+.wiki-prose h1,.wiki-prose h2,.wiki-prose h3 { margin:1.3em 0 .5em;color:#1e2a42; }
+.wiki-prose a { color:var(--blue);text-decoration:underline;text-underline-offset:3px; }
+.wiki-prose img { max-width:100%;height:auto;border-radius:7px; }
+.wiki-prose pre { overflow:auto;background:#f4f6fb;padding:16px;border-radius:7px;font-size:13px; }
+.wiki-prose code { font-family:Consolas,monospace; }
+.wiki-prose table { display:block;max-width:100%;overflow:auto;border-collapse:collapse; }
+.wiki-prose th,.wiki-prose td { border:1px solid #dfe5ee;padding:8px 14px; }
+.wiki-prose blockquote { border-left:3px solid #a6b3ee;padding:3px 20px;color:#687b99; }
+.wiki-prose .katex-display { overflow:auto;max-width:100%; }
+.wiki-compose .record-label input { display:block;width:100%;padding:11px 13px;border:1px solid #dce2ed;border-radius:7px;margin:8px 0;color:#314263; }
+.wiki-compose .record-label small { font-size:11px;color:var(--muted); }
+.wiki-editor { border:1px solid #dce2ed;border-radius:8px;overflow:hidden; }
+.editor-tabs,.format-toolbar { display:flex;gap:15px;padding:10px 15px;align-items:center;border-bottom:1px solid var(--line);background:#fafbfe; }
+.editor-tabs button,.format-toolbar button { border:0;background:none;padding:3px;color:#75829a; }
+.editor-tabs button[aria-pressed=true] { color:var(--blue);font-weight:600; }
+.format-toolbar { font-size:12px;padding:7px 15px; }
+.format-toolbar span { margin-left:auto;color:#9aa4b8;font-size:10px; }
+.source-label { display:block;padding:15px;font-size:12px;color:#79879d; }
+.source-label textarea { display:block;min-height:330px;width:100%;font:13px/1.8 Consolas,'Microsoft YaHei',monospace;margin-top:10px;border:0;outline:none;resize:vertical;color:#32415d; }
+.visual-editor .ProseMirror { min-height:330px;padding:15px 22px;font-size:15px;line-height:1.9;outline:none;overflow-wrap:anywhere; }
+.visual-editor .ProseMirror p { margin:8px 0; }
+.visual-editor .ProseMirror table { border-collapse:collapse;display:block;max-width:100%;overflow:auto; }
+.visual-editor .ProseMirror td,.visual-editor .ProseMirror th { border:1px solid #dce2ed;padding:5px 10px; }
+.visual-editor pre { white-space:pre-wrap;background:#f5f6fa;padding:12px; }
+.visual-editor img { max-width:100%; }
+.editor-notice { padding:14px;font-size:12px;color:#856321;background:#fff8e3; }
+.compose-actions { display:flex;gap:15px;align-items:center;flex-wrap:wrap;margin-top:17px; }
+.conflict-panel { background:#fff9e8;border:1px solid #ead797;border-radius:10px;padding:22px;max-width:1000px; }
+.conflict-panel>p { font-size:12px;color:#897135;margin-top:10px; }
+.conflict-columns { display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:20px 0; }
+.conflict-columns label { font-size:12px; }
+.conflict-columns input { display:block;width:100%;min-width:0;margin-top:9px;padding:12px;border:1px solid #e5d6ab;font:inherit; }
+.conflict-columns textarea { display:block;width:100%;min-height:250px;padding:12px;border:1px solid #e5d6ab;resize:vertical;font:13px/1.8 Consolas,'Microsoft YaHei',monospace;margin-top:9px; }
+.compare-controls { display:flex;gap:17px;align-items:end;margin-bottom:25px;flex-wrap:wrap; }
+.compare-controls label { font-size:12px;color:#71819c;min-width:0;flex:1; }
+.compare-controls select { display:block;width:100%;max-width:100%;margin-top:7px;border:1px solid #e0e5ef;border-radius:6px;padding:10px;font:inherit;color:#445979; }
+.revision-row { display:flex;justify-content:space-between;gap:15px;padding:17px 0;border-top:1px solid var(--line);align-items:center; }
+.revision-row strong { font-size:13px; }
+.revision-row p,.revision-row small { font-size:11px;color:#8b97ab;margin-top:5px;overflow-wrap:anywhere; }
+.revision-row>div { min-width:0; }
+.revision-diff pre { white-space:pre-wrap;overflow-wrap:anywhere;padding:15px;border-radius:6px;line-height:1.8;font-size:12px;margin:15px 0; }
+.revision-diff pre span { display:block;font:11px 'Microsoft YaHei',sans-serif;margin-bottom:7px; }
+.diff-equal { background:#f4f6fa;color:#79879b; }
+.diff-added { background:#eaf8ef;color:#246f48; }
+.diff-removed { background:#fff0f1;color:#a33d45; }
+.rollback-confirm .primary { margin-top:15px; }
+.page-heading h1 { overflow-wrap:anywhere; }
+@media(max-width:680px) {
+ .conflict-columns { grid-template-columns:1fr; }
+ .format-toolbar span { display:none; }
+ .wiki-compose { padding:16px; }
+ .visual-editor .ProseMirror { padding:13px;font-size:16px; }
+ .source-label textarea { font-size:16px; }
+ .revision-row { flex-direction:column;align-items:start; }
+ .compare-controls { align-items:stretch;flex-direction:column; }
+ .wiki-prose { font-size:15px; }
+ .wiki-actions { gap:14px; }
+}

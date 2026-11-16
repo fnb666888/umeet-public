@@ -1,0 +1,7 @@
+FROM node:24-bookworm-slim
+WORKDIR /app
+COPY . .
+RUN npm ci --no-audit --no-fund --registry=https://registry.npmjs.org && npm run build:api && npm prune --omit=dev --no-audit --no-fund
+ENV NODE_ENV=production
+EXPOSE 8080
+CMD ["node", "cloud-start.mjs"]

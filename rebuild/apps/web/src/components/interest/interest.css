@@ -1,0 +1,261 @@
+.tabs.interest-tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 18px;
+  width: 100%;
+}
+.tabs.interest-tabs a {
+  padding: 12px 0;
+  color: var(--text-secondary);
+  border-bottom: 2px solid transparent;
+}
+.tabs.interest-tabs a.on {
+  color: var(--action);
+  border-color: var(--action);
+  font-weight: 600;
+}
+.interest-feed {
+  display: grid;
+  gap: 12px;
+}
+.interest-card,
+.interest-onboarding,
+.interest-poll {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--surface);
+  margin: 0 0 16px;
+}
+.interest-card h2 {
+  font-size: 19px;
+  line-height: 1.5;
+  margin: 8px 0;
+}
+.interest-card p {
+  margin: 10px 0;
+  overflow-wrap: anywhere;
+}
+.interest-meta,
+.interest-reason {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.interest-source-link {
+  color: var(--action);
+  font-size: 13px;
+}
+.interest-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.interest-filters {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.interest-filters label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.interest-filters select {
+  max-width: 200px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-primary);
+}
+.interest-filters a.on {
+  font-weight: 700;
+  color: var(--action);
+}
+.interest-status {
+  padding: 14px 16px;
+  margin: 16px 0;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.interest-status h2 {
+  font-size: 17px;
+}
+.interest-field-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin: 12px 0;
+}
+.interest-probability {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--action);
+  margin: 12px 0;
+}
+.interest-probability span {
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 12px;
+  color: var(--text-secondary);
+}
+.interest-detail {
+  max-width: 900px;
+}
+.interest-detail h1 {
+  font-size: 26px;
+  margin: 10px 0 16px;
+  overflow-wrap: anywhere;
+}
+.interest-detail h2 {
+  font-size: 18px;
+  margin: 24px 0 12px;
+}
+.interest-detail li {
+  margin: 10px 0;
+}
+.interest-detail > p {
+  line-height: 1.8;
+}
+.interest-whitespace {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.interest-comment {
+  border-top: 1px solid var(--border);
+  padding: 14px 0;
+}
+.interest-comment p {
+  margin: 8px 0;
+}
+.interest-detail label,
+.interest-poll label,
+.interest-onboarding > label,
+.interest-admin label {
+  display: grid;
+  gap: 7px;
+  margin: 12px 0;
+  font-size: 13px;
+}
+.interest-detail textarea,
+.interest-poll textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+.interest-detail input,
+.interest-detail textarea,
+.interest-poll input,
+.interest-poll textarea,
+.interest-onboarding input,
+.interest-admin input,
+.interest-admin select,
+.interest-admin textarea {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--surface);
+  color: var(--text);
+}
+.interest-choices {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.interest-choices label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.interest-choices input {
+  width: auto;
+}
+.interest-onboarding h2 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+.interest-reason {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.interest-recommendation {
+  margin-bottom: 16px;
+}
+.interest-poll-options {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0;
+}
+.interest-poll-options button {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  text-align: left;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text);
+}
+.interest-poll-options button[aria-pressed='true'] {
+  border-color: var(--action);
+  color: var(--action);
+}
+.interest-poll:empty {
+  display: none;
+}
+.interest-admin {
+  max-width: 1000px;
+}
+.interest-admin h2 {
+  font-size: 18px;
+  margin: 18px 0 12px;
+}
+.interest-admin-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 16px;
+  margin: 12px 0;
+  border-radius: var(--r);
+}
+.interest-admin details {
+  margin: 12px 0;
+}
+.interest-admin pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+.interest-admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.interest-admin small {
+  display: block;
+  color: var(--text-secondary);
+}
+@media (max-width: 600px) {
+  .interest-admin-grid {
+    grid-template-columns: 1fr;
+  }
+  .interest-card,
+  .interest-onboarding,
+  .interest-poll {
+    padding: 14px;
+  }
+  .interest-detail h1 {
+    font-size: 22px;
+  }
+}

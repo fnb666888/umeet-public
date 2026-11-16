@@ -1,0 +1,224 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+}
+model School {
+  id String @id
+  name String
+  emailDomains String[] @default([])
+  treeholeEnabled Boolean @default(false)
+  campuses Campus[]
+  memberships Membership[]
+  posts Post[]
+  verifications Verification[]
+}
+model Campus {
+  id String @id
+  name String
+  schoolId String
+  school School @relation(fields: [schoolId], references: [id])
+  posts Post[]
+}
+model User {
+  id String @id @default(uuid())
+  nickname String
+  avatar String @default("")
+  openid String? @unique
+  role String @default("STUDENT")
+  adminSchoolId String?
+  banned Boolean @default(false)
+  deletedAt DateTime?
+  sessionVersion Int @default(0)
+  createdAt DateTime @default(now())
+  memberships Membership[]
+  verifications Verification[]
+  posts Post[]
+  comments Comment[]
+  reactions Reaction[]
+  notifications Notification[]
+  media Media[]
+  reports Report[]
+  feedback Feedback[]
+  consents Consent[]
+}
+model Membership {
+  id String @id @default(uuid())
+  userId String
+  schoolId String
+  status String @default("UNVERIFIED")
+  expiresAt DateTime?
+  user User @relation(fields: [userId], references: [id])
+  school School @relation(fields: [schoolId], references: [id])
+  @@unique([userId, schoolId])
+}
+model Verification {
+  id String @id @default(uuid())
+  userId String
+  schoolId String
+  method String
+  email String?
+  codeHash String?
+  codeExpiresAt DateTime?
+  attempts Int @default(0)
+  materialId String?
+  status String @default("PENDING")
+  reason String @default("")
+  reviewedAt DateTime?
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+  school School @relation(fields: [schoolId], references: [id])
+  @@index([schoolId, status])
+}
+model Post {
+  id String @id @default(uuid())
+  authorId String
+  schoolId String
+  campusId String
+  category String
+  title String
+  content String
+  anonymous Boolean @default(false)
+  status String @default("PENDING")
+  businessStatus String @default("ACTIVE")
+  priceFen Int?
+  marketType String? @default("SELL")
+  condition String?
+  location String?
+  happenedAt DateTime?
+  lostType String?
+  contact String?
+  moderationReason String @default("")
+  version Int @default(1)
+  requestKey String
+  requestHash String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author User @relation(fields: [authorId], references: [id])
+  school School @relation(fields: [schoolId], references: [id])
+  campus Campus @relation(fields: [campusId], references: [id])
+  comments Comment[]
+  reactions Reaction[]
+  media Media[]
+  reports Report[]
+  @@unique([authorId, requestKey])
+  @@index([schoolId, campusId, status, createdAt, id])
+}
+model Comment {
+  id String @id @default(uuid())
+  postId String
+  authorId String
+  parentId String?
+  content String
+  status String @default("PENDING")
+  reason String @default("")
+  createdAt DateTime @default(now())
+  post Post @relation(fields: [postId], references: [id])
+  author User @relation(fields: [authorId], references: [id])
+  reports Report[]
+  @@index([postId, status, createdAt])
+}
+model Reaction {
+  id String @id @default(uuid())
+  userId String
+  postId String
+  type String
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+  post Post @relation(fields: [postId], references: [id])
+  @@unique([userId, postId, type])
+}
+model Media {
+  id String @id @default(uuid())
+  userId String
+  postId String?
+  purpose String
+  key String
+  mime String
+  size Int
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+  post Post? @relation(fields: [postId], references: [id])
+}
+model Report {
+  id String @id @default(uuid())
+  userId String
+  postId String
+  commentId String?
+  reason String
+  snapshot Json
+  status String @default("OPEN")
+  resolution String @default("")
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+  post Post @relation(fields: [postId], references: [id])
+  comment Comment? @relation(fields: [commentId], references: [id])
+  @@index([status, createdAt])
+}
+model Notification {
+  id String @id @default(uuid())
+  userId String
+  eventId String @unique
+  title String
+  body String
+  postId String?
+  readAt DateTime?
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+  delivery SubscriptionDelivery?
+  @@index([userId, createdAt])
+}
+model SubscriptionDelivery {
+  id String @id @default(uuid())
+  notificationId String @unique
+  consentId String
+  status String @default("PENDING")
+  platformCode Int?
+  error String @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  notification Notification @relation(fields: [notificationId], references: [id])
+}
+model Outbox {
+  id String @id @default(uuid())
+  kind String
+  payload Json
+  status String @default("PENDING")
+  attempts Int @default(0)
+  error String @default("")
+  nextAttemptAt DateTime @default(now())
+  createdAt DateTime @default(now())
+  @@index([status, nextAttemptAt])
+}
+model Audit {
+  id String @id @default(uuid())
+  actorId String
+  action String
+  targetId String
+  detail Json
+  createdAt DateTime @default(now())
+}
+model Block {
+  id String @id @default(uuid())
+  userId String
+  blockedId String
+  createdAt DateTime @default(now())
+  @@unique([userId, blockedId])
+}
+model Feedback {
+  id String @id @default(uuid())
+  userId String
+  content String
+  status String @default("OPEN")
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+}
+model Consent {
+  id String @id @default(uuid())
+  userId String
+  templateId String
+  state String
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+}

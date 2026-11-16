@@ -1,0 +1,44 @@
+@import '../../tokens.wxss';
+.post-card {
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid var(--border);
+  color: var(--text-primary);
+}
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  color: var(--text-secondary);
+  font-size: 23rpx;
+}
+.initial {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38rpx;
+  height: 38rpx;
+  border-radius: 50%;
+  background: var(--selected-bg);
+  color: var(--action);
+}
+.post-title {
+  font-weight: 600;
+  font-size: 32rpx;
+  margin: 16rpx 0 10rpx;
+}
+.post-summary {
+  color: var(--text-secondary);
+  font-size: 27rpx;
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.bottom {
+  justify-content: space-between;
+  margin-top: 20rpx;
+}
+.badge {
+  color: var(--action);
+}

@@ -1,0 +1,13 @@
+.auth-methods{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0}
+button:disabled{cursor:not-allowed;opacity:.55}
+.auth-methods button{font:inherit;font-size:12px;border:1px solid var(--line);padding:7px 10px;background:white;color:#71819c;border-radius:6px}
+.auth-methods button[aria-pressed=true]{color:var(--blue);border-color:#adbaff;background:#f3f5ff}
+.auth-methods button:disabled{color:#adb4c3;cursor:default;background:#fafbfe}
+.otp-form label,.security-password label{display:block;font-size:12px;color:#6b7890;margin:17px 0}
+.otp-form input,.security-password input{display:block;width:100%;font:inherit;border:1px solid #dce2ed;border-radius:7px;padding:11px 13px;margin-top:7px;color:#32415d;background:#fafbfe}
+.otp-form .primary{margin-top:15px}.otp-form .guest-button{margin-bottom:19px}
+.security-page{max-width:900px}.security-password,.security-bind .otp-form{max-width:480px}
+.login-method-list{display:grid;grid-template-columns:80px minmax(0,1fr);gap:12px;font-size:13px;margin:22px 0;color:#526885}
+.login-method-list dt{color:var(--muted)}.login-method-list dd{margin:0;overflow-wrap:anywhere}
+.reauth-notice{padding:13px;background:#fff7df;color:#8a743e;font-size:12px;border-radius:6px;margin-top:15px}
+@media(max-width:680px){.otp-form input,.security-password input{font-size:16px}.login-method-list{grid-template-columns:60px minmax(0,1fr)}.auth-methods{gap:5px}.auth-methods button{font-size:11px}}

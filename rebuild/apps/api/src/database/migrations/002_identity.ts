@@ -1,0 +1,6 @@
+import { sql,type Kysely } from 'kysely';
+export async function up(db:Kysely<unknown>):Promise<void>{
+ await db.schema.createTable('external_identities').addColumn('provider','varchar(80)',c=>c.notNull()).addColumn('subject','varchar(200)',c=>c.notNull()).addColumn('user_id','varchar(64)',c=>c.notNull()).addPrimaryKeyConstraint('identity_pk',['provider','subject']).addForeignKeyConstraint('identity_user_fk',['user_id'],'users',['id']).execute();
+ await db.schema.createTable('personal_records').addColumn('user_id','varchar(64)',c=>c.notNull()).addColumn('kind','varchar(32)',c=>c.notNull()).addColumn('record_key','varchar(160)',c=>c.notNull()).addColumn('value','text',c=>c.notNull()).addColumn('updated_at','timestamp',c=>c.notNull().defaultTo(sql`CURRENT_TIMESTAMP`)).addPrimaryKeyConstraint('personal_pk',['user_id','kind','record_key']).addForeignKeyConstraint('personal_user_fk',['user_id'],'users',['id']).execute();
+ await db.schema.createTable('platform_roles').addColumn('user_id','varchar(64)',c=>c.notNull()).addColumn('role','varchar(80)',c=>c.notNull()).addPrimaryKeyConstraint('role_pk',['user_id','role']).addForeignKeyConstraint('role_user_fk',['user_id'],'users',['id']).execute();
+}

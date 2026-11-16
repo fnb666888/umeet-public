@@ -1,0 +1,38 @@
+<view class="page {{theme}}"
+  ><view class="heading">{{conversation.name || '私信'}}</view
+  ><view wx:if="{{error}}" class="error">{{error}}</view
+  ><view wx:if="{{conversation.incomingRequest && conversation.status==='pending'}}" class="notice"
+    >这是一条消息请求。<view class="actions"
+      ><button class="primary" data-action="accept" id="action-action" bindtap="action">接受</button
+      ><button data-action="ignore" id="action-action" bindtap="action">忽略</button></view
+    ></view
+  ><view wx:if="{{conversation.unavailable}}" class="notice">当前无法向此用户发送消息</view
+  ><button wx:if="{{hasMore}}" class="quiet" id="action-older" bindtap="older">加载较早消息</button
+  ><view wx:for="{{messages}}" wx:key="id" class="margin-top"
+    ><view class="caption">{{item.time}}</view
+    ><view class="bubble {{item.incoming?'incoming':'outgoing'}}">{{item.text}}</view></view
+  ><view class="sticky margin-top">
+    <textarea
+      class="field"
+      value="{{text}}"
+      bindinput="input"
+      maxlength="2000"
+      placeholder="输入消息"
+      disabled="{{busy || conversation.blocked || conversation.unavailable}}"
+    /><button
+      class="primary margin-top"
+      id="action-send"
+      bindtap="send"
+      disabled="{{busy || !text || conversation.blocked || conversation.unavailable}}"
+      loading="{{busy}}"
+    >
+      发送</button
+    ><view class="actions"
+      ><button data-action="block" id="action-action" bindtap="action">
+        {{conversation.blocked?'解除屏蔽':'屏蔽'}}</button
+      ><button data-action="mute" id="action-action" bindtap="action">
+        {{conversation.muted?'恢复提醒':'免打扰'}}</button
+      ><button data-action="report" id="action-action" bindtap="action">举报</button></view
+    ></view
+  ></view
+>

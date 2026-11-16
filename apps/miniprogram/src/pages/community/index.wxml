@@ -1,0 +1,52 @@
+<view class="page {{theme}}"
+  ><view class="row between"
+    ><view class="brand"><text class="brand-u">U</text>meet<text class="link">.</text></view
+    ><button class="secondary" id="action-publish" bindtap="publish">＋ 发帖</button></view
+  ><input
+    class="search"
+    placeholder="搜索校园内容"
+    value="{{q}}"
+    bindinput="searchInput"
+    bindconfirm="search"
+    confirm-type="search"
+  /><view class="row between"
+    ><view class="heading">社区</view
+    ><text class="link small" id="action-apply" bindtap="apply">申请开设板块 ↗</text></view
+  ><scroll-view scroll-x class="tabs"
+    ><text class="tab {{!board?'active':''}}" data-id="" id="action-pickBoard" bindtap="pickBoard"
+      >全部</text
+    ><text
+      wx:for="{{boards}}"
+      wx:key="id"
+      class="tab {{board===item.slug?'active':''}}"
+      data-id="{{item.slug}}"
+      id="action-pickBoard"
+      bindtap="pickBoard"
+      >{{item.name}}</text
+    ></scroll-view
+  ><view class="chips"
+    ><text
+      class="chip {{sort==='latest'?'selected':''}}"
+      data-id="latest"
+      id="action-pickSort"
+      bindtap="pickSort"
+      >最新</text
+    ><text
+      class="chip {{sort==='hot'?'selected':''}}"
+      data-id="hot"
+      id="action-pickSort"
+      bindtap="pickSort"
+      >热门</text
+    ></view
+  ><view wx:if="{{error}}" class="error"
+    >{{error}}<button class="quiet" id="action-load" bindtap="load">重新加载</button></view
+  ><post-card wx:for="{{posts}}" wx:key="id" post="{{item}}" bind:open="open" /><view
+    wx:if="{{loading}}"
+    class="notice"
+    >正在加载…</view
+  ><view wx:elif="{{!posts.length && !error}}" class="empty"
+    >还没有讨论，分享一条校园日常吧。<button class="quiet" id="action-publish" bindtap="publish">
+      写一条分享
+    </button></view
+  ><view wx:elif="{{!next}}" class="empty">已经看到全部内容</view></view
+>

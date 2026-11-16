@@ -1,0 +1,42 @@
+<view class="page {{theme}}"
+  ><view class="heading">{{space.name || '社区知识'}}</view
+  ><view wx:if="{{error}}" class="error">{{error}}</view
+  ><view
+    wx:for="{{nodes}}"
+    wx:key="id"
+    class="card margin-top"
+    style="margin-left:{{item.depth}}rpx"
+    ><view class="subheading">{{item.title}}</view
+    ><view
+      wx:for="{{item.entries}}"
+      wx:for-item="entry"
+      wx:key="pageId"
+      class="menu-item"
+      data-id="{{entry.pageId}}"
+      data-available="{{entry.available}}"
+      id="action-open"
+      bindtap="open"
+      ><text class="{{entry.available?'link':'muted'}}">{{entry.title}}</text
+      ><text>{{entry.available?'↗':'不可用'}}</text></view
+    ></view
+  ><view class="subheading margin-top">学习路线</view
+  ><view
+    wx:for="{{routes}}"
+    wx:key="id"
+    class="card margin-top"
+    data-id="{{item.id}}"
+    id="action-route"
+    bindtap="route"
+    ><view class="bold">{{item.title}} ↗</view><view class="caption">{{item.goal}}</view></view
+  ><view class="subheading margin-top">社区收录</view
+  ><view
+    wx:for="{{space.collections}}"
+    wx:key="pageId"
+    class="menu-item"
+    data-id="{{item.pageId}}"
+    data-available="{{item.available}}"
+    id="action-open"
+    bindtap="open"
+    ><text>{{item.title}}</text><text>{{item.available?'↗':'不可用'}}</text></view
+  ></view
+>

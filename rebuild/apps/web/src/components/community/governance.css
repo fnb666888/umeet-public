@@ -1,0 +1,387 @@
+.governance-page {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.board-application {
+  max-width: 800px;
+}
+.board-application-back {
+  display: inline-block;
+  margin-bottom: 18px;
+  font-size: 13px;
+}
+.board-application-header {
+  margin-bottom: 24px;
+}
+.board-application-header h1 {
+  font-size: 26px;
+  letter-spacing: -.025em;
+}
+.board-application-header p {
+  margin: 8px 0 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+.board-eligibility {
+  padding: 18px 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--surface-subtle);
+}
+.board-eligibility-heading,
+.board-eligibility-metric > div,
+.board-application-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.board-eligibility-heading h2 {
+  font-size: 15px;
+}
+.board-eligibility-status {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.board-eligibility-status.is-ready {
+  color: var(--success);
+}
+.board-eligibility-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 16px;
+}
+.board-eligibility-metric {
+  min-width: 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.board-eligibility-metric b {
+  font-size: 18px;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.board-eligibility-metric progress {
+  display: block;
+  width: 100%;
+  height: 4px;
+  margin-top: 8px;
+  border: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--border);
+  accent-color: var(--action);
+}
+.board-eligibility-metric progress::-webkit-progress-bar {
+  background: var(--border);
+}
+.board-eligibility-metric progress::-webkit-progress-value {
+  background: var(--action);
+}
+.board-eligibility-metric progress::-moz-progress-bar {
+  background: var(--action);
+}
+.board-eligibility-note {
+  margin: 14px 0 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+.governance-form.board-application-form {
+  display: block;
+  max-width: none;
+  margin: 24px 0 0;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.board-application-form fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 24px;
+  border: 0;
+}
+.board-application-form fieldset + fieldset {
+  border-top: 1px solid var(--border);
+}
+.board-application-form legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 4px;
+  font-size: 17px;
+  font-weight: 650;
+}
+.board-fieldset-note {
+  clear: both;
+  margin: 0 0 20px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.board-application-basics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.board-application-form label {
+  align-content: start;
+  font-size: 14px;
+}
+.governance-form.board-application-form input:not([type='checkbox']),
+.governance-form.board-application-form textarea {
+  min-height: 44px;
+  border-color: var(--control-border);
+  background: var(--surface);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.board-application-form :is(input, textarea)::placeholder {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+.board-application-form :is(input, textarea):focus-visible {
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
+}
+.board-application-form small,
+.board-field-help,
+.board-field-counter {
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 400;
+}
+.board-field-counter {
+  margin-top: 5px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.board-field-help {
+  margin-top: 6px;
+}
+.board-field-help [role='alert'],
+.board-application-error {
+  color: var(--danger);
+}
+.board-application-footer {
+  padding: 20px 24px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-subtle);
+  border-radius: 0 0 var(--r) var(--r);
+}
+.board-application-actions p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.board-application-actions .btn-primary {
+  min-height: 44px;
+  flex: none;
+  border-radius: var(--r);
+  padding-inline: 24px;
+  font-size: 14px;
+}
+.board-application-error {
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+.board-application-error button {
+  text-decoration: underline;
+}
+.board-application-success {
+  padding: 56px 24px;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.board-application-success-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background: var(--success-bg);
+  color: var(--success);
+}
+.board-application-success p {
+  margin: 12px 0 24px;
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .board-application-basics {
+    grid-template-columns: 1fr;
+  }
+  .board-eligibility {
+    padding: 16px;
+  }
+  .board-eligibility-metrics {
+    gap: 16px;
+  }
+  .board-application-form fieldset,
+  .board-application-footer {
+    padding: 20px 16px;
+  }
+  .board-application-actions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+.governance-form {
+  display: grid;
+  gap: 20px;
+  max-width: 720px;
+  margin-block: 24px;
+}
+.governance-form label {
+  display: grid;
+  gap: 8px;
+  font-weight: 500;
+}
+.governance-form input:not([type='checkbox']),
+.governance-form textarea {
+  width: 100%;
+  border: 1px solid var(--border, #d5d8dc);
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: inherit;
+  background: var(--surface, transparent);
+  font: inherit;
+}
+.governance-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+.governance-form .governance-check {
+  display: flex;
+  align-items: center;
+}
+.governance-form button {
+  justify-self: start;
+}
+.governance-table-wrap {
+  overflow-x: auto;
+  margin-block: 20px;
+}
+.governance-table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.governance-table-wrap th,
+.governance-table-wrap td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border, #ddd);
+}
+.governance-table-wrap th {
+  white-space: nowrap;
+}
+.governance-membership {
+  padding-block: 20px;
+  border-bottom: 1px solid var(--border, #ddd);
+}
+.governance-membership button {
+  margin-inline-end: 12px;
+}
+.governance-user-options {
+  display: grid;
+  max-height: 250px;
+  overflow-y: auto;
+  gap: 6px;
+  padding-block: 12px;
+}
+.governance-user-options label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  overflow-wrap: anywhere;
+  flex-wrap: wrap;
+}
+.governance-user-options label small {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.governance-user-options input[type='checkbox'] {
+  flex: 0 0 auto;
+}
+.governance-permissions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding-block: 12px;
+}
+.governance-permissions label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.admin-group-dialog[open] {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  z-index: 100;
+  width: min(620px, calc(100vw - 32px));
+  max-height: calc(100dvh - 48px);
+  overflow: auto;
+  box-shadow: 0 16px 80px #0004;
+}
+.admin-group-dialog::backdrop {
+  background: #0006;
+}
+@media (max-width: 600px) {
+  .governance-permissions {
+    grid-template-columns: 1fr;
+  }
+  .governance-table-wrap td,
+  .governance-table-wrap th {
+    padding: 10px 8px;
+  }
+}
+.admin-table-wrap {
+  overflow-x: auto;
+  margin-block: 20px;
+}
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.admin-table th,
+.admin-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border, #dce0e6);
+  vertical-align: top;
+}
+.admin-table th {
+  color: var(--muted, #657080);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.admin-table td small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted, #657080);
+}
+.admin-table button {
+  border: 0;
+  padding: 0;
+  color: var(--accent, #3064d8);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+.admin-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block: 20px;
+}
+.admin-toolbar input {
+  min-width: 0;
+  flex: 1;
+  max-width: 400px;
+}

@@ -1,0 +1,7 @@
+{
+  "desc": "仅允许公开广场被索引，匿名与个人信息页面不索引",
+  "rules": [
+    { "action": "allow", "page": "pages/community/index" },
+    { "action": "disallow", "page": "*" }
+  ]
+}

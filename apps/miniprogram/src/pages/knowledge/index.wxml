@@ -1,0 +1,54 @@
+<view class="page {{theme}}"
+  ><view class="row between"
+    ><view class="heading">Wiki 知识库</view
+    ><button class="secondary" id="action-create" bindtap="create">＋ 创建</button></view
+  ><input
+    class="search"
+    value="{{q}}"
+    bindinput="input"
+    bindconfirm="search"
+    placeholder="搜索词条、概念与办事指南"
+    confirm-type="search"
+  /><view class="row between"
+    ><view class="subheading">社区知识目录</view
+    ><text class="link small" id="action-manage" bindtap="manage">我的贡献与草稿 ›</text></view
+  ><scroll-view scroll-x class="tabs"
+    ><text
+      wx:for="{{communities}}"
+      wx:key="id"
+      class="tab"
+      data-slug="{{item.slug}}"
+      id="action-space"
+      bindtap="space"
+      >{{item.name}} ↗</text
+    ></scroll-view
+  ><view wx:if="{{routes.length}}" class="card"
+    ><view class="subheading">学习路线</view
+    ><view
+      wx:for="{{routes}}"
+      wx:key="id"
+      class="menu-item"
+      data-id="{{item.id}}"
+      id="action-route"
+      bindtap="route"
+      ><view
+        ><view class="bold">{{item.title}}</view><view class="caption">{{item.goal}}</view></view
+      ><text class="link">›</text></view
+    ></view
+  ><view class="subheading margin-top">{{q?'搜索结果':'发现词条'}}</view
+  ><view wx:if="{{error}}" class="error">{{error}}</view
+  ><view
+    wx:for="{{items}}"
+    wx:key="id"
+    class="card margin-top"
+    data-id="{{item.id}}"
+    id="action-open"
+    bindtap="open"
+    ><view class="subheading">{{item.title}}</view
+    ><view class="caption margin-top">{{item.summary}}</view
+    ><text class="link small">阅读词条 ↗</text></view
+  ><view wx:if="{{loading}}" class="notice">正在加载…</view
+  ><view wx:elif="{{!items.length && !error}}" class="empty"
+    >没有找到词条，可以换个关键词或创建新词条。</view
+  ></view
+>

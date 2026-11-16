@@ -1,0 +1,16 @@
+**/node_modules
+**/.next
+**/dist
+**/.git
+**/.env
+**/.env.*
+**/.runtime
+**/.superpowers
+**/coverage
+**/*.log
+**/*.key
+**/*.pem
+**/*.tsbuildinfo
+docs
+tests
+probes

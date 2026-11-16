@@ -1,0 +1,131 @@
+<view class="page {{theme}}"
+  ><view class="heading">申请、邀请与管理记录</view
+  ><view wx:if="{{error}}" class="error">{{error}}</view
+  ><view class="subheading margin-top">收到的邀请</view
+  ><view wx:for="{{invitations}}" wx:key="id" class="card margin-top"
+    ><view>版主邀请 · {{item.board}}</view><view class="caption">{{item.state}}</view
+    ><view wx:if="{{item.state==='pending'}}" class="actions"
+      ><button
+        class="primary"
+        data-id="{{item.id}}"
+        data-version="{{item.version}}"
+        data-action="accept"
+        id="action-respond"
+        bindtap="respond"
+      >
+        接受</button
+      ><button
+        data-id="{{item.id}}"
+        data-version="{{item.version}}"
+        data-action="decline"
+        id="action-respond"
+        bindtap="respond"
+      >
+        拒绝
+      </button></view
+    ></view
+  ><view wx:for="{{teams}}" wx:key="id" class="card"
+    ><view>{{item.name}} · {{item.state}}</view
+    ><view wx:if="{{item.state==='invited'}}" class="actions"
+      ><button
+        data-team="true"
+        data-id="{{item.id}}"
+        data-version="{{item.version}}"
+        data-action="accept"
+        id="action-respond"
+        bindtap="respond"
+      >
+        接受助手邀请</button
+      ><button
+        data-team="true"
+        data-id="{{item.id}}"
+        data-version="{{item.version}}"
+        data-action="decline"
+        id="action-respond"
+        bindtap="respond"
+      >
+        拒绝
+      </button></view
+    ></view
+  ><view class="subheading margin-top">我的申请</view
+  ><view wx:for="{{items}}" wx:key="id" class="card margin-top"
+    ><view>{{item.data.name || item.board}}</view><view class="caption">{{item.state}}</view
+    ><view>{{item.reason}}</view
+    ><button
+      wx:if="{{item.state==='pending'}}"
+      class="quiet"
+      data-id="{{item.id}}"
+      data-version="{{item.version}}"
+      id="action-withdraw"
+      bindtap="withdraw"
+    >
+      撤回申请</button
+    ><button
+      wx:if="{{item.state==='returned'}}"
+      class="quiet"
+      data-index="{{index}}"
+      id="action-revise"
+      bindtap="revise"
+    >
+      补充材料后重提
+    </button></view
+  ><view class="subheading margin-top">管理记录与申诉</view
+  ><view wx:for="{{records}}" wx:key="id" class="card margin-top"
+    ><view>{{item.title}}</view><view>{{item.reason}}</view
+    ><view wx:if="{{item.appeal}}" class="notice"
+      >申诉：{{item.appeal.status}} {{item.appeal.resolution}}</view
+    ><button
+      wx:elif="{{item.actionId}}"
+      class="quiet"
+      data-id="{{item.actionId}}"
+      id="action-appeal"
+      bindtap="appeal"
+    >
+      提交申诉
+    </button></view
+  ><view class="divider" /><view class="subheading">提交社区申请</view
+  ><view wx:if="{{eligibility}}" class="notice"
+    >注册 {{eligibility.registeredDays}} / {{eligibility.requiredDays}} 天 · 有效发帖
+    {{eligibility.validPosts}} / {{eligibility.requiredPosts}} 篇<view
+      wx:for="{{eligibility.blockReasons}}"
+      wx:key="*this"
+      >{{item}}</view
+    ></view
+  ><view id="application-form" class="notice"
+    >{{editing?'正在补充退回申请':'开设新的社区板块'}}。版主与助手通过收到的邀请加入。</view
+  ><text class="label">板块英文标识</text
+  ><input
+    class="field"
+    value="{{board}}"
+    data-field="board"
+    bindinput="input"
+    placeholder="例如 astronomy"
+  /><text class="label">名称</text
+  ><input class="field" value="{{name}}" data-field="name" bindinput="input" /><text class="label"
+    >简介</text
+  ><textarea
+    class="field"
+    value="{{description}}"
+    data-field="description"
+    bindinput="input"
+    maxlength="160"
+  /><text class="label">基本规则，每行一条</text
+  ><textarea class="field" value="{{rules}}" data-field="rules" bindinput="input" /><text
+    class="label"
+    >申请理由</text
+  ><textarea
+    class="field"
+    value="{{reason}}"
+    data-field="reason"
+    bindinput="input"
+    maxlength="2000"
+  /><button
+    class="primary margin-top"
+    id="action-submit"
+    bindtap="submit"
+    disabled="{{busy || !eligibility.eligible}}"
+    loading="{{busy}}"
+  >
+    {{editing?'重新提交':'提交申请'}}
+  </button></view
+>

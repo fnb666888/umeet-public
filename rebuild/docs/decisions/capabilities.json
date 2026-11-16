@@ -1,0 +1,12 @@
+{
+ "checkedAt":"2026-11-07",
+ "results":[
+  {"capability":"web-editor-markdown-roundtrip","status":"pass","evidence":"Real Milkdown DOM fixture plus shared AST safety/serialization tests; npm run e2e:web passes create, visual/source switching, concurrent conflict merge, diff and immutable rollback","constraint":"Native editor and authorized image upload remain unverified; this is not complete product release acceptance"},
+  {"capability":"mysql-test-runtime","status":"pass","evidence":"MySQL 8.4.11 isolated loopback port 19316; transaction rollback and repeat migration passed","constraint":"Not the user's production version; no production database queried"},
+  {"capability":"wechat-cloud-hosting-environment","status":"pass","evidence":"Official @wxcloud/cli service:list returned umeet and example-api with normal status on 2026-11-07","constraint":"Read-only service inventory only. Two new deployment targets, limits and pricing not validated; CloudBase environment management is a different product path"},
+  {"capability":"self-owned-auth-channels","status":"blocked","evidence":"NestJS/MySQL password, guest, OTP, owned identity linking, session rotation, limits and recent-proof tests implemented. Real local TLS SMTP browser flow passes guest upgrade, password setup, email binding, real resend cooldown and same-account login. Native WeChat and optional SMS adapters have transport-isolated tests; no CloudBase runtime","constraint":"User deferred provider preparation and requested code/templates first. Real email/SMS providers and real WeChat/device acceptance remain unverified; website WeChat and native app integration remain incomplete. Delivery defaults disabled; no four-channel production acceptance claim"},
+  {"capability":"mini-program-visual-editor","status":"blocked","evidence":"No native editor simulator/device fixture executed yet","constraint":"Web Milkdown result is not evidence of native support"},
+  {"capability":"storage-and-file-checks","status":"blocked","evidence":"No production storage/scanner authorization tested","constraint":"No fake upload/download/scanning production adapters"},
+  {"capability":"cloud-price-and-backup","status":"blocked","evidence":"No current WeChat Cloud Hosting resource/backup inventory read","constraint":"Do not carry over virtual machine prices or claim RPO/RTO achieved"}
+ ]
+}

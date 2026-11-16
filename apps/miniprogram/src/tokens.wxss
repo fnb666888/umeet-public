@@ -1,0 +1,25 @@
+/* Generated from the website semantic tokens. */
+page,
+.page {
+  --text-primary: #1f2328;
+  --text-secondary: #636b74;
+  --surface: #fff;
+  --surface-subtle: #f6f7f9;
+  --surface-hover: #f0f2f5;
+  --border: #e3e6ea;
+  --action: #3568d4;
+  --action-hover: #2954b0;
+  --selected-bg: #edf3ff;
+  --success: #28634e;
+  --success-bg: #edf5f0;
+  --danger: #b3402e;
+}
+.page.dark {
+  --text-primary: #e5e9f0;
+  --text-secondary: #a9b1bc;
+  --surface: #171b22;
+  --surface-subtle: #222833;
+  --surface-hover: #2b3442;
+  --border: #36404d;
+  --selected-bg: #223557;
+}

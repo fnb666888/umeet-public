@@ -1,0 +1,37 @@
+{
+  "name": "umeet",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/admin",
+    "apps/miniprogram"
+  ],
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "npm run build && concurrently -k -n API,ADMIN,MINI \"npm run dev -w @umeet/api\" \"npm run dev -w @umeet/admin\" \"npm run dev -w @umeet/miniprogram\"",
+    "build:api": "npm run generate -w @umeet/api && npm run build -w @umeet/api",
+    "build": "npm run build:api && npm run build -w @umeet/admin && npm run build -w @umeet/miniprogram",
+    "test": "npm run build:api && node --test --test-concurrency=1 apps/api/test/*.test.cjs",
+    "check": "npm run build && npm run check:mini && npm test",
+    "check:mini": "node scripts/check-mini.mjs",
+    "format": "prettier --write \"apps/*/src/**/*.ts\" \"apps/admin/src/**/*.vue\" \"apps/admin/src/**/*.css\" \"apps/*/src/**/*.json\" \"apps/*/*.ts\" \"scripts/*.mjs\" \"apps/miniprogram/scripts/*.mjs\" \"*.json\" \"docs/*.md\" README.md compose.yaml"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "deepmerge-ts": "8.0.2",
+    "js-yaml": "5.4.3",
+    "mysql2": "3.24.5",
+    "prettier": "3.9.10"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "overrides": {
+    "mariadb": "3.5.4",
+    "js-yaml": "5.4.3",
+    "deepmerge-ts": "8.0.2",
+    "mysql2": "3.24.5"
+  },
+  "license": "0BSD"
+}

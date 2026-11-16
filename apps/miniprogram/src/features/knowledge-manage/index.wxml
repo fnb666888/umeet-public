@@ -1,0 +1,44 @@
+<view class="page {{theme}}"
+  ><view class="row between"
+    ><view class="heading">我的 Wiki</view
+    ><button class="secondary" id="action-create" bindtap="create">＋ 创建</button></view
+  ><view wx:if="{{error}}" class="error">{{error}}</view
+  ><view class="subheading margin-top">本机尚未同步的内容</view
+  ><view
+    wx:for="{{local}}"
+    wx:key="task"
+    class="card margin-top"
+    data-task="{{item.task}}"
+    data-page="{{item.pageId}}"
+    id="action-draft"
+    bindtap="draft"
+    ><view class="bold">{{item.content.title || '未命名草稿'}}</view
+    ><view class="caption">仅保存在本机 · 点击恢复</view></view
+  ><view class="subheading margin-top">服务器私人草稿</view
+  ><view
+    wx:for="{{drafts}}"
+    wx:key="draftId"
+    class="card margin-top"
+    data-task="{{item.editingTaskId}}"
+    data-page="{{item.pageId}}"
+    id="action-draft"
+    bindtap="draft"
+    ><view class="bold">{{item.title || '未命名草稿'}}</view
+    ><view class="caption">已同步 · 继续编辑 ›</view></view
+  ><view class="subheading margin-top">提交与审核状态</view
+  ><view wx:for="{{proposals}}" wx:key="id" class="card margin-top"
+    ><view class="bold">{{item.content.title}}</view
+    ><text class="badge"
+      >{{item.state==='pending'?'待审核':item.state==='returned'?'已退回':'已通过'}}</text
+    ><view wx:if="{{item.reason}}" class="notice">{{item.reason}}</view
+    ><button
+      wx:if="{{item.state==='returned'}}"
+      class="quiet"
+      data-id="{{item.id}}"
+      id="action-proposal"
+      bindtap="proposal"
+    >
+      修改后重新提交
+    </button></view
+  ></view
+>

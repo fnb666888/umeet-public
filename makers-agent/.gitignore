@@ -1,0 +1,13 @@
+node_modules/
+.edgeone/
+.env
+.env.*
+!.env.example
+dist/
+build-diagnostic.log
+
+# Tencent Cloud EdgeOne
+.env
+.edgeone/*
+.tef_dist/*
+  

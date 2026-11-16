@@ -1,0 +1,27 @@
+[Unit]
+Description=Umeet community API and background jobs
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/etc/umeet/api.env
+
+[Service]
+Type=simple
+User=umeet
+Group=umeet
+WorkingDirectory=/opt/umeet/current
+EnvironmentFile=/etc/umeet/api.env
+ExecStart=/opt/umeet/node/bin/node apps/api/dist/apps/api/src/main.js
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=90
+KillSignal=SIGTERM
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+MemoryHigh=384M
+MemoryMax=512M
+
+[Install]
+WantedBy=multi-user.target

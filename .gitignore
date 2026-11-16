@@ -1,0 +1,26 @@
+node_modules/
+dist/
+.data/
+.env
+.env.*
+!.env.example
+!.env.production.example
+.references/
+project.private.config.json
+*.log
+coverage/
+artifacts/
+private.*.key
+*.pem
+.tmp-test/
+__pycache__/
+*.pyc
+
+# Local credentials, runtime data and backups
+.runtime/
+*.key
+*.p12
+*.pfx
+*.har
+*.sql.gz
+*.bak

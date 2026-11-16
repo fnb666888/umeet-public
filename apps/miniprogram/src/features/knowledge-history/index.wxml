@@ -1,0 +1,24 @@
+<view class="page {{theme}}"
+  ><view class="heading">历史与差异</view><view wx:if="{{error}}" class="error">{{error}}</view
+  ><view class="notice">依次选择旧版与新版进行比较。已选择 {{selected.length}} / 2。</view
+  ><view wx:for="{{history}}" wx:key="id" class="card"
+    ><view class="bold">{{item.title}}</view
+    ><view class="caption">{{item.authorAlias}} · {{item.createdAt}}</view
+    ><view>{{item.changeNote}}</view
+    ><view class="actions"
+      ><button data-id="{{item.id}}" id="action-select" bindtap="select">选择版本</button
+      ><button data-id="{{item.id}}" id="action-revision" bindtap="revision">
+        阅读此版本
+      </button></view
+    ></view
+  ><button class="primary" id="action-compare" bindtap="compare" disabled="{{selected.length!==2}}">
+    比较两个版本</button
+  ><view
+    wx:for="{{diff.blocks}}"
+    wx:key="index"
+    class="notice body"
+    style="color:{{item.kind==='removed'?'#b3402e':item.kind==='added'?'#28634e':'#636b74'}}"
+    >{{item.kind==='removed'?'− 删除':item.kind==='added'?'+ 新增':'未改变'}}{{'\n'}}{{item.text}}</view
+  ><scroll-view wx:for="{{blocks}}" wx:key="index" class="wide" scroll-x="{{item.wide}}"
+    ><rich-text nodes="{{item.nodes}}" user-select /></scroll-view
+></view>

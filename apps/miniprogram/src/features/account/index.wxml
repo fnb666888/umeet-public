@@ -1,0 +1,143 @@
+<view class="page {{theme}}"
+  ><view class="heading">账号与微信</view
+  ><view class="caption margin-top">已有网站账号时，先登录，再绑定当前微信。</view
+  ><view wx:if="{{message}}" class="notice">{{message}}</view
+  ><view wx:if="{{account}}" class="card margin-top stack"
+    ><view class="row"
+      ><view class="avatar">{{account.nickname[0]}}</view
+      ><view
+        ><view class="subheading">{{account.nickname}}</view
+        ><view class="caption">@{{account.handle}}</view></view
+      ></view
+    ><view wx:for="{{account.identities}}" wx:key="key" class="caption">{{item.label}}</view
+    ><button
+      wx:if="{{channels.wechatMini}}"
+      class="secondary"
+      id="action-wechat"
+      bindtap="wechat"
+      disabled="{{busy}}"
+    >
+      绑定当前微信</button
+    ><view wx:else class="notice">微信登录尚未配置，当前可使用网站账号登录。</view
+    ><button class="primary" id="action-back" bindtap="back">返回我的</button
+    ><button class="danger" id="action-logout" bindtap="logout" disabled="{{busy}}">
+      退出当前账号
+    </button></view
+  ><block wx:else
+    ><view class="tabs"
+      ><text
+        class="tab {{mode==='password'?'active':''}}"
+        data-mode="password"
+        id="action-mode"
+        bindtap="mode"
+        >密码登录</text
+      ><text
+        wx:if="{{channels.email}}"
+        class="tab {{mode==='code'?'active':''}}"
+        data-mode="code"
+        id="action-mode"
+        bindtap="mode"
+        >邮箱验证码</text
+      ><text
+        wx:if="{{channels.email}}"
+        class="tab {{mode==='register'?'active':''}}"
+        data-mode="register"
+        id="action-mode"
+        bindtap="mode"
+        >注册</text
+      ><text
+        wx:if="{{channels.email}}"
+        class="tab {{mode==='recovery'?'active':''}}"
+        data-mode="recovery"
+        id="action-mode"
+        bindtap="mode"
+        >找回密码</text
+      ></view
+    ><block wx:if="{{mode==='password'}}"
+      ><text class="label">邮箱或用户名</text
+      ><input
+        class="field"
+        value="{{username}}"
+        data-field="username"
+        bindinput="input"
+        disabled="{{busy}}" /><text class="label">密码</text
+      ><input
+        class="field"
+        password
+        value="{{password}}"
+        data-field="password"
+        bindinput="input"
+        disabled="{{busy}}" /></block
+    ><block wx:else
+      ><text class="label">邮箱</text
+      ><input
+        class="field"
+        value="{{email}}"
+        data-field="email"
+        bindinput="input"
+        disabled="{{busy}}" /><button
+        class="quiet"
+        id="action-send"
+        bindtap="send"
+        disabled="{{busy || !email}}"
+      >
+        获取验证码</button
+      ><text class="label">验证码</text
+      ><input
+        class="field"
+        type="number"
+        maxlength="6"
+        value="{{code}}"
+        data-field="code"
+        bindinput="input" /></block
+    ><block wx:if="{{mode==='register'}}"
+      ><text class="label">用户名</text
+      ><input
+        class="field"
+        value="{{username}}"
+        data-field="username"
+        bindinput="input"
+        disabled="{{busy}}" /><text class="label">邀请码（仅邀请注册时填写）</text
+      ><input
+        class="field"
+        value="{{inviteCode}}"
+        data-field="inviteCode"
+        bindinput="input"
+        disabled="{{busy}}" /></block
+    ><block wx:if="{{mode==='register' || mode==='recovery'}}"
+      ><text class="label">新密码（至少12位）</text
+      ><input
+        class="field"
+        password
+        value="{{password}}"
+        data-field="password"
+        bindinput="input"
+        disabled="{{busy}}" /><text class="label">确认密码</text
+      ><input
+        class="field"
+        password
+        value="{{passwordAgain}}"
+        data-field="passwordAgain"
+        bindinput="input"
+        disabled="{{busy}}" /></block
+    ><button
+      class="primary margin-top"
+      id="action-login"
+      bindtap="login"
+      loading="{{busy}}"
+      disabled="{{busy || (mode!=='password' && !challengeId)}}"
+    >
+      {{mode==='register'?'验证邮箱并注册':mode==='recovery'?'重设密码并登录':'登录'}}</button
+    ><button
+      wx:if="{{channels.wechatMini}}"
+      class="secondary margin-top"
+      id="action-wechat"
+      bindtap="wechat"
+      disabled="{{busy}}"
+    >
+      微信登录</button
+    ><view class="notice"
+      >验证已有账号后可以关联微信。注册与密码找回需站点启用邮件验证码，未启用时使用已有网站账号登录。</view
+    ></block
+  ></view
+>

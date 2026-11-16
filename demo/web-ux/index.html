@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<title>Umeet · 首页</title>
+<link rel="stylesheet" href="css/style.css?v=20261108-11">
+</head>
+<body>
+<header class="topbar">
+ <div class="topbar-inner">
+  <button class="menu-btn" id="menu-btn" aria-label="菜单" aria-controls="sidebar" aria-expanded="false" data-ui-icon="menu"></button>
+  <a class="brand" href="#/" aria-label="Umeet 首页"><span class="brand-initial">u</span><span>meet</span><span class="brand-dot">.</span></a>
+  <div class="search" id="search">
+    <span data-ui-icon="search"></span>
+    <input id="search-input" aria-label="搜索帖子、词条或标签" placeholder="搜索校园内容" autocomplete="off">
+    <div class="search-drop" id="search-drop" hidden></div>
+  </div>
+  <div class="top-actions">
+    <button type="button" class="btn-primary" id="btn-new">发帖</button>
+    <div class="bell-wrap">
+      <button class="bell" id="btn-bell" aria-label="通知">
+        <span data-ui-icon="bell"></span>
+        <span class="badge" id="bell-badge" hidden></span>
+      </button>
+      <div class="drop" id="bell-drop" hidden></div>
+    </div>
+    <div class="avatar-wrap"><button class="avatar" id="btn-avatar" aria-label="我的账号">林</button><div class="drop" id="avatar-drop" hidden></div></div>
+  </div>
+ </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main" id="main"></main>
+  <aside class="rail" id="rail"></aside>
+</div>
+
+<dialog class="modal-card" id="composer" aria-labelledby="composer-title">
+  <header class="modal-head">
+    <h2 id="composer-title">发帖</h2>
+    <button type="button" class="icon-btn" id="composer-close" aria-label="关闭发帖器" data-ui-icon="x"></button>
+  </header>
+  <div id="composer-body"></div>
+  <footer class="composer-footer">
+    <p id="cmp-error" role="alert" hidden></p>
+    <div class="cmp-actions">
+      <span id="cmp-publish-note"></span>
+      <button type="button" class="btn-ghost" id="cmp-later">稍后继续</button>
+      <button type="button" class="btn-primary" id="cmp-submit">发布</button>
+    </div>
+  </footer>
+</dialog>
+
+<div class="composer-bar" id="composer-bar" hidden></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="js/data.js?v=20261108-11"></script>
+<script src="js/icons.js?v=20261108-11"></script>
+<script src="js/local.js?v=20261108-11"></script>
+<script src="js/features.js?v=20261108-11"></script>
+<script src="js/wiki.js?v=20261108-11"></script>
+<script src="js/app.js?v=20261108-11"></script>
+</body>
+</html>

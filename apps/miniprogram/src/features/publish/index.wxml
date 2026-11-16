@@ -1,0 +1,94 @@
+<view class="page {{theme}}"
+  ><view class="heading">{{id?'编辑帖子':'发布讨论'}}</view
+  ><view class="caption margin-top">{{saved || '失败时保留输入，草稿仅归当前账号'}}</view
+  ><view wx:if="{{error}}" class="error">{{error}}</view
+  ><view wx:if="{{existingId}}" class="actions"
+    ><button id="action-existing" bindtap="existing">查看已提交帖子</button
+    ><button id="action-newCopy" bindtap="newCopy">另存为新帖子</button></view
+  ><block wx:if="{{!id}}"
+    ><text class="label">发布板块</text
+    ><picker
+      disabled="{{busy}}"
+      class="field"
+      range="{{boards}}"
+      range-key="name"
+      value="{{boardIndex}}"
+      bindchange="board"
+      ><view>{{boards[boardIndex].name || '选择板块'}}　⌄</view></picker
+    ></block
+  ><text class="label">标题</text
+  ><input
+    disabled="{{busy}}"
+    class="field"
+    value="{{title}}"
+    maxlength="200"
+    data-field="title"
+    bindinput="input"
+  /><text class="label">{{id?'正文（Markdown）':'正文'}}</text
+  ><textarea
+    disabled="{{busy}}"
+    class="field editor"
+    value="{{body}}"
+    maxlength="{{id?30000:2000}}"
+    data-field="body"
+    bindinput="input"
+    placeholder="分享清晰、具体的内容"
+  /><block wx:if="{{!id}}"
+    ><text class="label">标签（逗号分隔，最多三个）</text
+    ><input
+      disabled="{{busy}}"
+      class="field"
+      value="{{tags}}"
+      data-field="tags"
+      bindinput="input"
+    /><block wx:if="{{community==='market'}}"
+      ><text class="label">价格</text
+      ><input
+        disabled="{{busy}}"
+        class="field"
+        type="digit"
+        value="{{price}}"
+        data-field="price"
+        bindinput="input" /></block
+    ><block wx:if="{{community==='buddies'}}"
+      ><text class="label">地点或约定</text
+      ><input
+        disabled="{{busy}}"
+        class="field"
+        value="{{meeting}}"
+        data-field="meeting"
+        bindinput="input" /><text class="label">活动时间</text
+      ><input
+        disabled="{{busy}}"
+        class="field"
+        value="{{meetingAt}}"
+        data-field="meetingAt"
+        bindinput="input"
+        placeholder="2026-11-20 18:00" /></block
+    ><view class="actions"
+      ><button id="action-images" bindtap="images" disabled="{{busy || images.length>=4}}">
+        ＋ 添加图片 {{images.length}}/4
+      </button></view
+    ><view wx:for="{{images}}" wx:key="index"
+      ><image class="image" mode="widthFix" src="{{item}}" /><button
+        class="quiet danger"
+        data-index="{{index}}"
+        id="action-removeImage"
+        bindtap="removeImage"
+      >
+        移除此图片
+      </button></view
+    ></block
+  ><view class="actions"
+    ><button id="action-persist" bindtap="persist">保存草稿</button
+    ><button
+      class="primary"
+      id="action-submit"
+      bindtap="submit"
+      loading="{{busy}}"
+      disabled="{{busy}}"
+    >
+      {{id?'保存修改':'提交发布'}}
+    </button></view
+  ></view
+>

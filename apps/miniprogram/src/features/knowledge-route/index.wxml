@@ -1,0 +1,45 @@
+<view class="page {{theme}}"
+  ><view wx:if="{{error}}" class="error">{{error}}</view
+  ><block wx:if="{{route}}"
+    ><view class="heading">{{route.title}}</view
+    ><view class="caption margin-top">学习目标：{{route.goal}}</view
+    ><view class="route-step"
+      ><view class="caption">第 {{step+1}} / {{route.steps.length}} 步</view
+      ><view class="subheading">{{route.steps[step].title}}</view
+      ><view>{{route.steps[step].goal}}</view></view
+    ><scroll-view wx:for="{{introBlocks}}" wx:key="index" class="wide" scroll-x="{{item.wide}}"
+      ><rich-text nodes="{{item.nodes}}" /></scroll-view
+    ><view wx:if="{{!route.steps[step].available}}" class="notice"
+      >本步引用词条暂不可用，仍可继续阅读其他步骤。</view
+    ><view wx:if="{{route.steps[step].needsReview}}" class="notice"
+      >引用内容已更新，路线维护者尚待复核导读。</view
+    ><view class="divider" /><scroll-view
+      wx:for="{{blocks}}"
+      wx:key="index"
+      class="wide"
+      scroll-x="{{item.wide}}"
+      ><rich-text nodes="{{item.nodes}}" user-select /></scroll-view
+    ><button
+      wx:for="{{links}}"
+      wx:key="url"
+      class="quiet"
+      data-url="{{item.url}}"
+      id="action-link"
+      bindtap="link"
+    >
+      {{item.label}} ↗</button
+    ><button wx:if="{{page}}" class="quiet" id="action-open" bindtap="open">
+      查看完整词条与关系 ↗</button
+    ><view class="actions sticky"
+      ><button disabled="{{step===0}}" id="action-previous" bindtap="previous">上一步</button
+      ><button
+        class="primary"
+        disabled="{{step===route.steps.length-1}}"
+        id="action-next"
+        bindtap="next"
+      >
+        下一步
+      </button></view
+    ></block
+  ></view
+>

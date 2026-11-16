@@ -1,0 +1,176 @@
+import type { Generated } from 'kysely';
+import type {BrowserAccountTables,BrowserSessionColumns} from '../modules/identity/browser-account.tables.js';
+import type { KnowledgeTables } from '../modules/knowledge/knowledge.tables.js';
+import type { InterestTables } from '../modules/community-interest/interest.tables.js';
+export interface Database extends KnowledgeTables,BrowserAccountTables,InterestTables {
+  community_teams: { id: string; board: string; owner_id: string; name: string; state: string; version: number };
+  community_team_members: { team_id: string; user_id: string; permissions: string; state: string; version: number };
+  moderator_board_grants: { user_id: string; board: string; permissions: string };
+  community_requests: { id: string; user_id: string; kind: string; board: string; state: string; data: string; version: number; created_at: Date };
+  community_request_events: { id: string; request_id: string; actor_id: string; action: string; reason: string; created_at: Date };
+  moderation_groups: { id: string; name: string; boards: string; permissions: string };
+  moderation_group_members: { group_id: string; user_id: string; boards: Generated<string | null> };
+  moderation_penalties: { id: string; user_id: string; board: string | null; capability: string; reason: string; until_at: Date | null; revoked_at: Date | null; created_at: Date; source_action_id: Generated<string | null>; superseded_by: Generated<string | null> };
+  moderation_action_effects: { id: string; action_id: string; type: string; target: string; board: string | null; penalty_id: string | null; before_data: string; after_data: string; reversed_by: string | null; created_at: Date };
+  moderation_appeals: { id: string; user_id: string; action_id: string; reason: string; status: string; resolution: string; created_at: Date };
+  community_restrictions: { user_id: string; board: string; until_at: Date; reason: string };
+  admin_visibility: { target: string; hidden: number };
+  admin_restrictions: { user_id: string; until_at: Date; reason: string };
+  admin_report_results: { report_id: string; outcome: string; reason: string };
+  admin_actions: { id: string; actor_id: string; request_hash: string; action: string; target: string; reason: string; before_data: string; after_data: string; created_at: Date; board: Generated<string | null> };
+  admin_notifications: { id: string; user_id: string; text: string; detail: string; href: string; created_at: Date };
+  dm_conversations: { id:string; first_user:string; second_user:string; requested_by:string; status:string; updated_at:Date };
+  dm_members: { conversation_id:string; user_id:string; muted:number; blocked:number; hidden:number };
+  dm_preferences: { user_id:string; allow_requests:number };
+  dm_reports: { id:string; reporter_id:string; message_id:string; reason:string; created_at:Date };
+  demo_content: { id: string; version: number; data: string; updated_at: Date };
+  demo_user_states: { user_id: string; data: string; updated_at: Date };
+  registration_invites: { code_hash: string; expires_at: Date; used_at: Date | null };
+  post_reviews: { id: string; board: string; user_id: string; status: string; data: string; reason: string; created_at: Date };
+  demo_entities: { id: string; kind: string; data: string; page_board: Generated<string | null>; page_parent: Generated<string | null>; page_created: Generated<number>; page_pinned: Generated<number>; page_score: Generated<number>; page_activity: Generated<number>; page_reply_score: Generated<number> };
+  community_post_bookmarks: { user_id: string; post_id: string };
+  demo_assets: { id: string; data: string };
+  demo_operations: { id: string; request_hash: string; created_at: Date };
+  demo_messages: { id: string; sender_id: string; recipient_id: string; text: string; post_id: string | null; read_at: Date | null; created_at: Date; conversation_id: Generated<string | null> };
+  discussion_posts: {
+    id: string;
+    community_id: string;
+    author_id: string;
+    title: string;
+    body: string;
+    state: 'pending' | 'public' | 'hidden';
+    created_at: Date;
+    published_at: Date | null;
+  };
+  discussion_comments: {
+    id: string;
+    post_id: string;
+    author_id: string;
+    parent_id: string | null;
+    body: string;
+    state: 'pending' | 'public' | 'hidden';
+    created_at: Date;
+  };
+  discussion_votes: { post_id: string; user_id: string; value: number };
+  discussion_reports: { post_id: string; user_id: string; reason: string };
+  users: {
+    username_changes: Generated<number>;
+    deleted_at: Generated<Date | null>;
+    handle: Generated<string | null>;
+    onboarded_at: Generated<Date | null>;
+    id: string;
+    nickname: string;
+    kind: Generated<'guest' | 'member'>;
+    created_at: Generated<Date>;
+    merged_into: Generated<string | null>;
+  };
+  audit_events: {
+    id: string;
+    actor_id: string | null;
+    kind: string;
+    target_id: string;
+    reason: string;
+    created_at: Generated<Date>;
+  };
+  external_identities: { provider: string; subject: string; user_id: string };
+  personal_records: {
+    user_id: string;
+    kind: string;
+    record_key: string;
+    value: string;
+    updated_at: Generated<Date>;
+  };
+  platform_roles: { user_id: string; role: string };
+  communities: {
+    id: string;
+    slug: string;
+    name: string;
+    description: string;
+    is_default: Generated<number>;
+    display_order: Generated<number>;
+  };
+  community_roles: { user_id: string; community_id: string; role: string };
+  wiki_spaces: { id: string; community_id: string };
+  community_applications: {
+    id: string;
+    applicant_id: string;
+    name: string;
+    slug: string;
+    description: string;
+    state: Generated<string>;
+    community_id: string | null;
+  };
+  community_invitations: {
+    id: string;
+    community_id: string;
+    user_id: string;
+    state: Generated<string>;
+    created_at: Generated<Date>;
+  };
+  jobs: {
+    id: string;
+    kind: string;
+    business_key: string;
+    payload: string;
+    state: string;
+    attempts: Generated<number>;
+    available_at: Date;
+    lease_owner: string | null;
+    lease_token: string | null;
+    lease_expires_at: Date | null;
+    last_error: string | null;
+  };
+  password_credentials: { username: string; user_id: string; password_hash: string };
+  runtime_settings: {id:string;revision:number;value:string;updated_at:Date};
+  sessions: BrowserSessionColumns & {
+    id: Generated<string | null>;
+    device: Generated<string>;
+    created_at: Generated<Date>;
+    last_seen_at: Generated<Date>;
+    token_hash: string;
+    user_id: string;
+    expires_at: Date;
+    authenticated_at: Generated<Date | null>;
+  };
+  otp_recipients: { key_hash: string; next_send_at: Date; window_start: Date; send_count: number };
+  otp_delivery_budgets: { channel: string; business_day: string; send_count: number };
+  otp_challenges: {
+    id: string;
+    channel: string;
+    recipient: string;
+    purpose: string;
+    owner_id: string | null;
+    code_hash: string;
+    expires_at: Date;
+    attempts: Generated<number>;
+    state: string;
+  };
+  auth_attempts: { key_hash: string; attempts: number; expires_at: Date };
+  wiki_pages: {
+    id: string;
+    community_id: string;
+    slug: string;
+    current_revision_id: string | null;
+    protected: Generated<number>;
+  };
+  wiki_revisions: {
+    id: string;
+    page_id: string;
+    author_id: string;
+    title: string;
+    markdown: string;
+    change_note: string;
+    previous_revision_id: string | null;
+    idempotency_key: string;
+    request_hash: string;
+    visibility: Generated<string>;
+    created_at: Generated<Date>;
+  };
+  wiki_links: {
+    revision_id: string;
+    source_page_id: string;
+    target_community_slug: string;
+    target_slug: string;
+    label: string;
+  };
+}

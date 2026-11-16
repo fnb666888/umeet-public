@@ -1,0 +1,98 @@
+name: Check Umeet
+
+on:
+  push:
+    branches: [main]
+    paths: ['rebuild/**', 'apps/miniprogram/**', 'scripts/check-mini.mjs', 'tests/mini/**', '.github/workflows/ci.yml', '.github/workflows/deploy-alicloud.yml']
+  pull_request:
+    paths: ['rebuild/**', 'apps/miniprogram/**', 'scripts/check-mini.mjs', 'tests/mini/**', '.github/workflows/ci.yml', '.github/workflows/deploy-alicloud.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: umeet-check-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_ROOT_HOST: '%'
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=15
+    defaults:
+      run:
+        working-directory: rebuild
+    env:
+      TEST_MYSQL_URL: mysql://root@127.0.0.1:3306/umeet_rebuild_test
+      NEXT_TELEMETRY_DISABLED: '1'
+      CIRCLE_NODE_TOTAL: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: rebuild/package-lock.json
+      - run: npm ci --no-audit --no-fund --registry=https://registry.npmjs.org
+      - name: Generate Next.js route types
+        working-directory: rebuild/apps/web
+        run: npx next typegen
+      - run: npm run check
+      - run: npm run build:api
+      - run: npm run build:web
+
+  miniprogram:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci --ignore-scripts --no-audit --no-fund --registry=https://registry.npmjs.org
+      - run: npm run build --workspace=@umeet/miniprogram
+      - run: npm run check:mini
+      - run: node --test tests/mini/session.test.mjs
+
+  deploy:
+    name: Legacy WeChat deployment (explicit opt-in)
+    needs: [check, miniprogram]
+    if: vars.WXCLOUD_DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      WXCLOUD_APP_ID: ${{ vars.WXCLOUD_APP_ID }}
+      WXCLOUD_ENV_ID: ${{ vars.WXCLOUD_ENV_ID }}
+      WXCLOUD_REGION: ${{ vars.WXCLOUD_REGION }}
+      WXCLOUD_API_SERVICE: ${{ vars.WXCLOUD_API_SERVICE }}
+      WXCLOUD_WEB_SERVICE: ${{ vars.WXCLOUD_WEB_SERVICE }}
+      WXCLOUD_API_ORIGIN: ${{ vars.WXCLOUD_API_ORIGIN }}
+      PUBLIC_WEB_ORIGIN: ${{ vars.PUBLIC_WEB_ORIGIN }}
+      WXCLOUD_CLI_KEY: ${{ secrets.WXCLOUD_CLI_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install official WeChat hosting CLI
+        run: |
+          npm install --prefix "$RUNNER_TEMP/wxcloud" @wxcloud/cli@2.3.3 --no-audit --no-fund --registry=https://registry.npmjs.org
+          echo "WXCLOUD_CLI_PATH=$RUNNER_TEMP/wxcloud/node_modules/@wxcloud/cli/bin/run" >> "$GITHUB_ENV"
+      - name: Deploy API and verify health
+        run: node rebuild/scripts/deploy-wechat.mjs api
+      - name: Deploy website and verify health
+        run: node rebuild/scripts/deploy-wechat.mjs web

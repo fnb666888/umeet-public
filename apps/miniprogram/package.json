@@ -1,0 +1,5 @@
+{
+  "name": "@umeet/miniprogram", "version": "0.1.0", "private": true,
+  "scripts": {"build": "tsc -p tsconfig.json && node scripts/copy.mjs", "dev": "node scripts/watch.mjs"},
+  "devDependencies": {"miniprogram-api-typings": "^4.0.0", "typescript": "^5.9.3"}
+}

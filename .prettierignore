@@ -1,0 +1,7 @@
+node_modules
+dist
+**/dist
+.references
+.data
+artifacts
+package-lock.json

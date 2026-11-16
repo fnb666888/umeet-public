@@ -1,0 +1,72 @@
+<view class="page {{theme}}"
+  ><view wx:if="{{error}}" class="error">{{error}}</view
+  ><block wx:if="{{page}}"
+    ><view class="title">{{page.title}}</view
+    ><view class="caption margin-top">{{page.summary}}</view
+    ><view class="caption margin-top">最后编辑 {{page.time}} · {{page.authorAlias}}</view
+    ><view wx:if="{{page.paused}}" class="notice">此词条正在争议复核，公开内容保持当前版本。</view
+    ><view class="actions"
+      ><button class="secondary" id="action-edit" bindtap="edit">完善词条</button
+      ><button id="action-history" bindtap="history">历史与差异</button
+      ><button open-type="share">分享</button></view
+    ><view class="divider" /><scroll-view
+      wx:for="{{blocks}}"
+      wx:key="index"
+      scroll-x="{{item.wide}}"
+      class="wide"
+      ><rich-text nodes="{{item.nodes}}" user-select /></scroll-view
+    ><view wx:if="{{links.length}}" class="subheading margin-top">正文链接</view
+    ><button
+      wx:for="{{links}}"
+      wx:key="url"
+      class="quiet"
+      data-url="{{item.url}}"
+      id="action-link"
+      bindtap="link"
+    >
+      {{item.label}} ↗</button
+    ><view wx:if="{{relations.length}}" class="subheading margin-top">知识关系</view
+    ><view
+      wx:for="{{relations}}"
+      wx:key="targetPageId"
+      class="card margin-top"
+      data-id="{{item.targetPageId}}"
+      data-available="{{item.available}}"
+      id="action-relation"
+      bindtap="relation"
+      ><text class="badge">{{item.label}}</text><view class="bold margin-top">{{item.title}} ↗</view
+      ><view wx:if="{{item.conditions}}">成立条件：{{item.conditions}}</view
+      ><view wx:if="{{item.explanation}}" class="caption">{{item.explanation}}</view
+      ><view wx:if="{{item.evidence}}" class="caption">依据：{{item.evidence}}</view></view
+    ><view wx:if="{{incoming.length}}" class="subheading margin-top">引用此词条的知识关系</view
+    ><view
+      wx:for="{{incoming}}"
+      wx:key="targetPageId"
+      class="card margin-top"
+      data-id="{{item.targetPageId}}"
+      data-available="{{item.available}}"
+      bindtap="relation"
+      ><text class="badge">{{item.label}}</text><view>{{item.title}} ↗</view
+      ><view wx:if="{{item.conditions}}" class="caption">成立条件：{{item.conditions}}</view></view
+    ><view class="divider" /><view class="subheading">讨论与纠错</view
+    ><view wx:for="{{discussions}}" wx:key="id" class="reply"
+      ><view class="caption">{{item.authorAlias}}</view
+      ><view class="body">{{item.body}}</view></view
+    ><textarea
+      disabled="{{busy}}"
+      class="field margin-top"
+      value="{{discussion}}"
+      bindinput="input"
+      placeholder="补充依据或指出需要纠正的地方"
+      maxlength="8000"
+    /><button
+      class="primary margin-top"
+      id="action-discuss"
+      bindtap="discuss"
+      disabled="{{busy || !discussion}}"
+      loading="{{busy}}"
+    >
+      提交讨论
+    </button></block
+  ></view
+>

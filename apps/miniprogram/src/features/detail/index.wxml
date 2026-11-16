@@ -1,0 +1,102 @@
+<view class="page {{theme}}"
+  ><view wx:if="{{error}}" class="error">{{error}}</view
+  ><block wx:if="{{post}}"
+    ><view class="caption" data-id="{{post.authorId}}" id="action-profile" bindtap="profile"
+      >{{post.author}} · {{post.time}}</view
+    ><view class="title margin-top">{{post.title}}</view
+    ><view class="chips margin-top"
+      ><text class="chip">{{post.community}}</text
+      ><text wx:for="{{post.tags}}" wx:key="*this" class="chip">{{item}}</text
+      ><text wx:if="{{post.sold}}" class="badge">已出</text
+      ><text wx:if="{{post.best}}" class="badge">已解决</text></view
+    ><view wx:if="{{post.price}}" class="subheading margin-top">¥ {{post.price}}</view
+    ><view wx:if="{{post.meeting}}" class="notice">{{post.meeting}}</view
+    ><view class="margin-top"
+      ><scroll-view wx:for="{{blocks}}" wx:key="index" scroll-x="{{item.wide}}" class="wide"
+        ><rich-text nodes="{{item.nodes}}" user-select /></scroll-view></view
+    ><button
+      wx:for="{{links}}"
+      wx:key="url"
+      class="quiet"
+      data-url="{{item.url}}"
+      id="action-link"
+      bindtap="link"
+    >
+      {{item.label}} ↗</button
+    ><image
+      wx:for="{{post.images}}"
+      wx:key="*this"
+      class="image"
+      mode="widthFix"
+      src="{{item}}"
+      data-src="{{item}}"
+      id="action-image"
+      bindtap="image"
+    /><view class="actions"
+      ><button
+        class="{{post.liked?'secondary':''}}"
+        id="action-like"
+        bindtap="like"
+        disabled="{{busy}}"
+      >
+        ♡ {{post.likes}}</button
+      ><button
+        class="{{post.bookmarked?'secondary':''}}"
+        id="action-bookmark"
+        bindtap="bookmark"
+        disabled="{{busy}}"
+      >
+        {{post.bookmarked?'已收藏':'收藏'}}</button
+      ><button open-type="share">分享</button
+      ><button id="action-report" bindtap="report">举报</button></view
+    ><view class="actions"
+      ><button wx:if="{{post.own}}" id="action-edit" bindtap="edit">编辑帖子</button
+      ><button wx:if="{{post.own && post.community==='market'}}" id="action-sold" bindtap="sold">
+        {{post.sold?'标记在售':'标记已出'}}</button
+      ><button wx:if="{{!post.own}}" id="action-message" bindtap="message">联系作者</button></view
+    ><view class="divider" /><view class="subheading">回复</view
+    ><view wx:for="{{replies}}" wx:key="id" class="reply"
+      ><view class="row between"
+        ><text class="link small" data-id="{{item.authorId}}" id="action-profile" bindtap="profile"
+          >{{item.author}}</text
+        ><text class="caption">{{item.time}}</text></view
+      ><view wx:if="{{item.replyToName}}" class="caption">回复 {{item.replyToName}}</view
+      ><view class="body">{{item.body}}</view
+      ><view class="row"
+        ><text class="link small" data-index="{{index}}" id="action-replyTo" bindtap="replyTo"
+          >回复</text
+        ><text class="link small" data-index="{{index}}" id="action-voteReply" bindtap="voteReply"
+          >♡ {{item.likes}}</text
+        ><text
+          wx:if="{{post.own && post.community==='questions'}}"
+          class="link small"
+          data-index="{{index}}"
+          id="action-accept"
+          bindtap="accept"
+          >{{post.best===item.id?'已采纳':'采纳'}}</text
+        ></view
+      ></view
+    ><view wx:if="{{next}}" class="notice">上滑加载更多回复</view
+    ><view class="sticky"
+      ><view wx:if="{{replyTo}}" class="caption" id="action-cancelReply" bindtap="cancelReply"
+        >回复 {{replyTo.author}}　× 取消</view
+      ><textarea
+        disabled="{{busy}}"
+        class="field"
+        maxlength="500"
+        value="{{reply}}"
+        bindinput="input"
+        placeholder="写下你的回复"
+        adjust-position
+      /><button
+        class="primary margin-top"
+        id="action-send"
+        bindtap="send"
+        disabled="{{busy || !reply}}"
+        loading="{{busy}}"
+      >
+        发送回复
+      </button></view
+    ></block
+  ></view
+>
